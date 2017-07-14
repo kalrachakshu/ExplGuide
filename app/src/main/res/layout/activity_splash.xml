@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_splash"
      android:layout_width="match_parent"
+
     android:background="@color/white"
     android:layout_height="match_parent" >
 
@@ -14,11 +15,7 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:background="@color/transparent_semi"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <LinearLayout
-        android:background="@color/transparent"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
@@ -31,7 +28,7 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_width="170dp"
-            android:src="@drawable/ic"
+            android:src="@drawable/lo2"
             android:layout_gravity="center"
             android:layout_height="170dp" />
 
@@ -40,6 +37,8 @@
     </LinearLayout>
 
     <in.hoptec.exploman.views.SplashView
+        android:visibility="gone"
+
         android:id="@+id/splash_view"
         android:background="@color/transparent"
         android:layout_width="match_parent"
@@ -57,13 +56,15 @@
     android:visibility="gone"
     android:id="@+id/logins"
     android:layout_alignParentBottom="true"
-    android:background="@color/transparent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
     <LinearLayout
+        android:background="@color/white"
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -75,6 +76,7 @@
             android:textColor="@color/color_splash_accent"
             android:layout_gravity="center"
             android:gravity="center"
+            android:visibility="invisible"
             android:text="@string/app_name"
             android:textSize="23sp"
             android:layout_width="match_parent"
@@ -82,6 +84,8 @@
 
 
         <LinearLayout
+            android:background="@color/white"
+
             android:weightSum="0.6"
             android:orientation="vertical"
             android:id="@+id/login_via"
@@ -197,10 +201,10 @@
     <com.daniribalbert.customfontlib.views.CustomFontTextView
         app:font="Avenir-Medium"
         android:padding="10dp"
-        android:textColor="@color/grey_800"
+        android:textColor="@color/grey_500"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Till You Sweat Pride !!"
+        android:text="Feel the Dunes"
         android:textSize="13sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

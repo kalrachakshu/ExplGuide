@@ -10,13 +10,21 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        findViewById(R.id.activity_home).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.activity_home).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onLongClick(View view) {
+
 
                 utl.logout();
                 onBackPressed();
+
+
+                return false;
             }
         });
+
+        utl.diagA(this,"Under Construction ","Welcome ! "+utl.getUser().getDisplayName()
+                +" \nThis is demo version of ExplOman ! \nLong Press Map  to logout");
+
     }
 }

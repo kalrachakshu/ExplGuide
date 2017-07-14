@@ -11,8 +11,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -49,15 +51,20 @@ import com.google.gson.JsonSyntaxException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import in.hoptec.exploman.utils.FileOperations;
+import in.hoptec.exploman.utils.GenricCallback;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -75,6 +82,7 @@ public class utl {
 
     public static Context ctx;
 
+    /*********************************************************/
     public static void init(Context ctxx)
     {
         ctx=ctxx;
@@ -127,7 +135,7 @@ public class utl {
     public static int getColor(@ColorRes int c)
     {
         int col=0;
-        col=ctx.getResources().getColor(R.color.orange);
+        col=ctx.getResources().getColor(c);
         return col;
     }
 
@@ -160,13 +168,13 @@ public class utl {
     }
 
 
-    public  static void slideUP(View view, Context context)
+    public  static void SlideUP(View view, Context context)
     {
         view.startAnimation(AnimationUtils.loadAnimation(context,
                 R.anim.slid_up));
     }
 
-    public static void slideDown(View view, Context context)
+    public static void SlideDown(View view, Context context)
     {
         view.startAnimation(AnimationUtils.loadAnimation(context,
                 R.anim.slid_down));
@@ -219,10 +227,6 @@ public class utl {
     }
 
 
-    public static boolean isNull(String is)
-    {
-        return is==null||(""+is).equals("null");
-    }
     public static  boolean isValidMobile(String phone)
     {
         return android.util.Patterns.PHONE.matcher(phone).matches();
@@ -325,14 +329,6 @@ public class utl {
             e.printStackTrace();
         }
 
-        try {
-            if(Splash.mGoogleApiClient!=null)
-                Auth.GoogleSignInApi.signOut(Splash.mGoogleApiClient);
-        } catch (Exception e) {
-
-            utl.l("GoogleApiClient is not connected yet. : Trying to logout");
-        }
-
 
         try {
             removeUserData();
@@ -358,13 +354,81 @@ public class utl {
     }
 
 
-    @SuppressWarnings("ResourceType")
-    public static void changeColorDrawable(ImageView imageView, @DrawableRes int res) {
+    public static void changeColorDrawable(ImageView imageView, @ColorRes int res) {
 
-        DrawableCompat.setTint(imageView.getDrawable(), ContextCompat.getColor(ctx, res));
+        try {
+            DrawableCompat.setTint(imageView.getDrawable(), ContextCompat.getColor(ctx, res));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
+    }
 
+
+    public static int getDominantColor1(Bitmap bitmap) {
+
+        if (bitmap == null)
+            throw new NullPointerException();
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int size = width * height;
+        int pixels[] = new int[size];
+
+        Bitmap bitmap2 = bitmap.copy(Bitmap.Config.ARGB_4444, false);
+
+        bitmap2.getPixels(pixels, 0, width, 0, 0, width, height);
+
+        final List<HashMap<Integer, Integer>> colorMap = new ArrayList<HashMap<Integer, Integer>>();
+        colorMap.add(new HashMap<Integer, Integer>());
+        colorMap.add(new HashMap<Integer, Integer>());
+        colorMap.add(new HashMap<Integer, Integer>());
+
+        int color = 0;
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        Integer rC, gC, bC;
+        for (int i = 0; i < pixels.length; i++) {
+            color = pixels[i];
+
+            r = Color.red(color);
+            g = Color.green(color);
+            b = Color.blue(color);
+
+            rC = colorMap.get(0).get(r);
+            if (rC == null)
+                rC = 0;
+            colorMap.get(0).put(r, ++rC);
+
+            gC = colorMap.get(1).get(g);
+            if (gC == null)
+                gC = 0;
+            colorMap.get(1).put(g, ++gC);
+
+            bC = colorMap.get(2).get(b);
+            if (bC == null)
+                bC = 0;
+            colorMap.get(2).put(b, ++bC);
+        }
+
+        int[] rgb = new int[3];
+        for (int i = 0; i < 3; i++) {
+            int max = 0;
+            int val = 0;
+            for (Map.Entry<Integer, Integer> entry : colorMap.get(i).entrySet()) {
+                if (entry.getValue() > max) {
+                    max = entry.getValue();
+                    val = entry.getKey();
+                }
+            }
+            rgb[i] = val;
+        }
+
+        int dominantColor = Color.rgb(rgb[0], rgb[1], rgb[2]);
+
+        return dominantColor;
     }
 
 
@@ -448,7 +512,6 @@ public class utl {
 
 
 
-
     public static void snack(View rootView,String t)
     {
 
@@ -470,6 +533,36 @@ public class utl {
 
 
 
+    public static void snack(View rootView,String t,String a,final GenricCallback cb)
+    {
+
+        Context act=rootView.getContext();
+
+        Snackbar snackbar = Snackbar.make(rootView,  ""+t, Snackbar.LENGTH_LONG);
+        snackbar.setActionTextColor(act.getResources().getColor(R.color.grey_100));
+        snackbar.setAction("" + a, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cb.onStart();
+            }
+        });
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(act.getResources().getColor(R.color.red_300));
+
+        int snackbarTextId = android.support.design.R.id.snackbar_text;
+        TextView textView = (TextView)snackbarView.findViewById(snackbarTextId);
+        textView.setTextColor(Color.WHITE);
+
+        if(DISPLAY_ENABLED)
+            snackbar.show();
+
+    }
+
+
+
+
+
+
     public static interface ClickCallBack{
 
         public void done(DialogInterface dialogInterface);
@@ -483,6 +576,29 @@ public class utl {
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
         alertDialogBuilder.setTitle(title);
         alertDialogBuilder.setMessage(desc);
+        alertDialogBuilder.setNeutralButton(action, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                click.done(dialogInterface);
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+
+    public static void diag(Context c,String title,String desc,boolean isCancellable,String action,final ClickCallBack click)
+    {
+
+
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setMessage(desc);
+        alertDialogBuilder.setCancelable(isCancellable);
         alertDialogBuilder.setNeutralButton(action, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -526,6 +642,32 @@ public class utl {
     }
 
 
+    public static void diagA(Context c,String title,String desc)
+    {
+        try {
+            final AlertDialog.Builder
+                    alertDialogBuilder = new AlertDialog.Builder
+                    (c,R.style.AnimatedDiag);
+             alertDialogBuilder.setTitle(title);
+            alertDialogBuilder.setMessage(Html.fromHtml(desc));
+            alertDialogBuilder.setNeutralButton("OK", new
+                    DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface
+                                                    dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+
+            AlertDialog alertDialog
+                    = alertDialogBuilder.create();
+
+
+            alertDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void toast(Context c,String t) {
@@ -544,13 +686,6 @@ public class utl {
 
         return FirebaseAuth.getInstance().getCurrentUser();
 
-    }
-
-    public static String getFCMTOken()
-    {
-
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        return refreshedToken;
     }
 
 
@@ -618,22 +753,34 @@ public class utl {
 
 
     public static String getRealPathFromUri(Uri uri) {
-        String result = "";
-        String documentID;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            String[] pathParts = uri.getPath().split("/");
-            documentID = pathParts[pathParts.length - 1];
-        } else {
-            String pathSegments[] = uri.getLastPathSegment().split(":");
-            documentID = pathSegments[pathSegments.length - 1];
+        String result = null;
+        try {
+            if(uri==null)
+                return null;
+
+            String documentID;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                String[] pathParts = uri.getPath().split("/");
+                documentID = pathParts[pathParts.length - 1];
+            } else {
+                String pathSegments[] = uri.getLastPathSegment().split(":");
+                documentID = pathSegments[pathSegments.length - 1];
+            }
+            String mediaPath = MediaStore.Images.Media.DATA;
+
+            Cursor imageCursor = ctx.getContentResolver().query(uri, new String[]{mediaPath}, MediaStore.Images.Media._ID + "=" + documentID, null, null);
+            if (imageCursor.moveToFirst()) {
+                result = imageCursor.getString(imageCursor.getColumnIndex(mediaPath));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String mediaPath = MediaStore.Images.Media.DATA;
-        Cursor imageCursor = ctx.getContentResolver().query(uri, new String[]{mediaPath}, MediaStore.Images.Media._ID + "=" + documentID, null, null);
-        if (imageCursor.moveToFirst()) {
-            result = imageCursor.getString(imageCursor.getColumnIndex(mediaPath));
-        }
+        if(result==null)
+            result=uri.toString().replace("file://","");
+        utl.l("Found File path "+result);
         return result;
     }
+
 
 
 
@@ -672,7 +819,6 @@ public class utl {
 
     }
 
-
     public static void copyFile(File src,File dst)
     {
         try{
@@ -703,7 +849,7 @@ public class utl {
 
     public static  boolean writeData(String text)
     {
-        String data= Constants.userDataFile();
+        String data= Constants.localDataFile();
         FileOperations fop=new FileOperations();
         Gson g=new Gson();
         fop.write(data,text);
@@ -712,9 +858,29 @@ public class utl {
     }
 
 
+
+
+    public static String readData()
+    {
+        String data= Constants.localDataFile();
+        if(!new File(data).exists())
+            return null;
+        FileOperations fop=new FileOperations();
+
+        Log.d("DATA READ",""+fop.read(data));
+        return  fop.read(data);
+
+
+
+    }
+
+
+
+
+
     public static  boolean removeData()
     {
-        String data= Constants.userDataFile();
+        String data= Constants.localDataFile();
         File f=new File(data);
         f.delete();
         return  true;
@@ -765,6 +931,12 @@ public class utl {
     }
 
 
+
+    public static String getFCMToken()
+    {
+        return FirebaseInstanceId.getInstance().getToken();
+
+    }
 
 
     public static GenricUser readUserData()
@@ -842,93 +1014,39 @@ public class utl {
     }
 
 
+    public static boolean saveVideoThumb(String filenameTarget,String video)
+    {
+        Bitmap bmp;
 
+        bmp = ThumbnailUtils.createVideoThumbnail(video, MediaStore.Video.Thumbnails.MINI_KIND);
 
-
-    public static void logEvent(String title,Object b){
-
-
+        FileOutputStream out = null;
         try {
-            String ins=utl.getDateTime();
-
-           //  App.ses.child(utl.refineString( ins,"_")).child("data").setValue((new Gson()).toJson(b).replace("\\\"","\"").replace("\"{","{").replace("}\"","}"));
+            out = new FileOutputStream(filenameTarget);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            // PNG is a lossless format, the compression factor (100) is ignored
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-    }
 
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                    return true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
 
-    public static String dev()
-    {
-        return "_"+utl.refineString(Build.DEVICE,"_")+"_"+utl.refineString(Build.MANUFACTURER,"_");
-    }
-
-    public static String getRealPathFromUri(Context ctx,Uri uri) {
-        String result = "";
-        String documentID;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            String[] pathParts = uri.getPath().split("/");
-            documentID = pathParts[pathParts.length - 1];
-        } else {
-            String pathSegments[] = uri.getLastPathSegment().split(":");
-            documentID = pathSegments[pathSegments.length - 1];
-        }
-        String mediaPath = MediaStore.Images.Media.DATA;
-        Cursor imageCursor = ctx.getContentResolver().query(uri, new String[]{mediaPath}, MediaStore.Images.Media._ID + "=" + documentID, null, null);
-        if (imageCursor.moveToFirst()) {
-            result = imageCursor.getString(imageCursor.getColumnIndex(mediaPath));
-        }
-        return result;
-    }
-
-
-
-    public  static void setLiked(String vid)
-    {        createLike();
-
-        FileOperations fop=new FileOperations();
-        String ol=""+fop.read(Constants.localDataFile());
-        ol=ol+","+vid;
-
-        fop.write(Constants.localDataFile(),ol);
-
-
-    }
-
-    public static void unLike(String vid)
-    {
-        createLike();
-        FileOperations fop=new FileOperations();
-        String ol=fop.read(Constants.localDataFile());
-        ol=ol+","+vid;
-        ol=ol.replace(vid,"");
-
-        fop.write(Constants.localDataFile(),ol);
-
-
-    }
-
-    public static void createLike()
-    {
-
-        FileOperations fop=new FileOperations();
-        if(new File(Constants.localDataFile()).exists());
-        else
-            fop.write(Constants.localDataFile(),"");
-    }
-
-    public  static boolean isLiked(String vid)
-    {        createLike();
-
-        FileOperations fop=new FileOperations();
-        String ol=""+fop.read(Constants.localDataFile());
-        if(ol.contains(vid))
-            return true;
-        else
             return false;
+        }
+
 
     }
+
 
 
 

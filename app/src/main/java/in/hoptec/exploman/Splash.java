@@ -62,6 +62,7 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
+import in.hoptec.exploman.utils.Bouncer;
 import in.hoptec.exploman.utils.Rotate3dAnimation;
 import in.hoptec.exploman.views.SplashView;
 
@@ -95,7 +96,7 @@ public class Splash extends AppCompatActivity {
         utl.setShared(this);
         bindViews();
         setUpAccent();
-        initAnims();
+
         initFbLogin();
         initMLogin();
         initGLogin();
@@ -127,6 +128,12 @@ public class Splash extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume()
+    {
+        initAnims();
+        super.onResume();
+    }
 
     public static String TAG = "Splash";
 
@@ -146,8 +153,8 @@ public class Splash extends AppCompatActivity {
     }
 
     void initAnims() {
-
-        splashView.splashAndDisappear(new SplashView.ISplashListener() {
+        zoom();
+        /*splashView.splashAndDisappear(new SplashView.ISplashListener() {
             @Override
             public void onStart() {
 
@@ -168,7 +175,7 @@ public class Splash extends AppCompatActivity {
 
             }
         });
-
+*/
 
     }
 
@@ -191,21 +198,23 @@ public class Splash extends AppCompatActivity {
     ImageView image;
 
     public void zoom() {
-        Animation animZoomIn = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.zoom_anim);
 
-        // set animation listener
-        animZoomIn.setAnimationListener(new Animation.AnimationListener() {
-                                            @Override
-                                            public void onAnimationStart(Animation animation) {
+        final Animation myAnim = AnimationUtils.loadAnimation(ctx, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        Bouncer interpolator = new Bouncer(0.25, 7);
+        myAnim.setInterpolator(interpolator);
+        myAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
 
-                                            }
+            }
 
-                                            @Override
-                                            public void onAnimationEnd(Animation animation) {
+            @Override
+            public void onAnimationEnd(Animation animation) {
 
-                                               // startRotation(0,360);
+                // startRotation(0,360);
 
                                              /*   ImageView img = (ImageView) findViewById(R.id.logo);
                                                 RotateAnimation rotateAnimation = new RotateAnimation(30, 90,
@@ -216,15 +225,15 @@ public class Splash extends AppCompatActivity {
                                                 img.startAnimation(rotateAnimation);
 
 */
-                                                if (utl.getUser() != null) {
-                                                    updateUI(utl.getUser());
-                                                    return;
-                                                }
+                if (utl.getUser() != null) {
+                    updateUI(utl.getUser());
+                    return;
+                }
 
-                                                utl.logout();
+                utl.logout();
 
-                                                if (Constants.IS_ANIMATED_BG_SPLASH)
-                                                    utl.animateBackGround(activity_splash, "#FF5722", "#009688", true, 10000);
+                if (Constants.IS_ANIMATED_BG_SPLASH)
+                    utl.animateBackGround(activity_splash, "#FF5722", "#009688", true, 10000);
 /*
                                                 logins.setVisibility(View.VISIBLE);
                                                 logins.setAlpha(0.0f);
@@ -235,24 +244,26 @@ public class Splash extends AppCompatActivity {
                                                 */
 
 
-                                                logins.setVisibility(View.VISIBLE);
-                                                //logins.setAlpha(1f);
+                logins.setVisibility(View.VISIBLE);
+                //logins.setAlpha(1f);
                                              /*   logins.animate()
                                                         .translationY(logins.getHeight())
                                                         .alpha(1.0f);
 */
-                                                utl.slideUP(logins,ctx);
+
+                utl.SlideUP(logins,ctx);
 
 
-                                            }
+            }
 
-                                            @Override
-                                            public void onAnimationRepeat(Animation animation) {
+            @Override
+            public void onAnimationRepeat(Animation animation) {
 
-                                            }
-                                        }
-        );
-        findViewById(R.id.logo).startAnimation(animZoomIn);
+            }
+        });
+
+        findViewById(R.id.logo).startAnimation(myAnim);
+
 
         View l = findViewById(R.id.logo);
         l.setOnLongClickListener(new View.OnLongClickListener() {
@@ -475,12 +486,14 @@ private class StartNextRotate implements Animation.AnimationListener {
         }
 
 
+/*
 
         if(firebaseUser.getDisplayName()!=null)
             utl.toast(ctx,"Welcome ! "+firebaseUser.getDisplayName());
         else
             utl.toast(ctx,"Welcome ! You are Logged In !");
 
+*/
 
 
         if(firebaseUser.getDisplayName()!=null||askedForName)
@@ -512,16 +525,16 @@ private class StartNextRotate implements Animation.AnimationListener {
             {
                 v=m_login;
             }
+            startActivity(intent);
 
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(act, v, getString(R.string.activity_image_trans));
                 startActivity(intent, options.toBundle());
             }
             else {
                 startActivity(intent);
-            }
+            }*/
 
             //finish();
 
