@@ -283,6 +283,12 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
+        final PrimaryDrawerItem home=new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                tours=new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                wallet=new PrimaryDrawerItem().withName("Wallet").withIcon(FontAwesome.Icon.faw_google_wallet).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                help=new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                logout=new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_delete).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx));
+
         //Create the drawer
         result = new DrawerBuilder()
                 .withActivity(this)
@@ -294,16 +300,18 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
 
-                        new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                        new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                        new SectionDrawerItem().withName("Wallet"),
-                        new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                        new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_minus).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx))
+                        home,tours,wallet, new SectionDrawerItem() ,help,logout
 
-                     )
+                        )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if(drawerItem==logout)
+                        {
+                            utl.logout();
+                            finish();
+                            return false;
+                        }
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(ctx, ((Nameable) drawerItem).getName().getText(ctx), Toast.LENGTH_SHORT).show();
                         }
