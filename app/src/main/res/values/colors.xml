@@ -6,6 +6,21 @@
 
 
 
+
+    <color name="material_drawer_background">#1a1a1c</color>
+    <color name="material_drawer_primary_text">#2979ff</color>
+    <color name="material_drawer_primary_icon">#2979ff</color>
+
+    <color name="material_drawer_secondary_text">#2979ff</color>
+    <color name="material_drawer_hint_text">#2979ff</color>
+    <color name="material_drawer_divider">#2979ff</color>
+    <!-- Material DEFAULT drawer colors -->
+    <color name="material_drawer_selected">#ffffff</color>
+    <color name="material_drawer_selected_text">#ffffff</color>
+    <color name="material_drawer_header_selection_text">#ffffff</color>
+
+
+
     <color name="color_splash_accent">#000</color>
     <color name="transparent_semi">#a9bdbdbd</color>
 

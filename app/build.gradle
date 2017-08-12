@@ -67,6 +67,7 @@ dependencies {
         transitive = true
     }
 
+    compile('com.mikepenz:crossfadedrawerlayout:1.0.0@aar')
 
     //network
     compile 'com.google.android.gms:play-services-maps:11.0.0'

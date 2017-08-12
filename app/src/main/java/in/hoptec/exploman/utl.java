@@ -13,7 +13,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
@@ -180,6 +182,43 @@ public class utl {
         view.startAnimation(AnimationUtils.loadAnimation(context,
                 R.anim.slid_down));
     }
+
+
+    public static String CLAN_PRO_NORMAL="ClanPro-Book.otf",AVENIR_MED="Avenir-Medium.ttf", CAVIAR="CaviarDreams.ttf",ROBOTO_THIN="Roboto-Thin.ttf";
+
+
+    public static Typeface getFace(String font,Context ctx)
+    {
+        Typeface face = Typeface.createFromAsset(ctx.getAssets(),
+                "fonts/"+font);
+
+        if(face==null)
+        {
+            face=Typeface.createFromAsset(ctx.getAssets(),
+                    "fonts/"+AVENIR_MED);
+        }
+        return face;
+
+    }
+
+
+
+    public static Typeface setFace(String font,TextView textView)
+    {
+        Context ctx=textView.getContext();
+        Typeface face = Typeface.createFromAsset(ctx.getAssets(),
+                "fonts/"+font);
+
+        if(face==null)
+        {
+            face= Typeface.createFromAsset(ctx.getAssets(),
+                    "fonts/"+AVENIR_MED);
+        }
+        textView.setTypeface(face);
+        return face;
+
+    }
+
 
 
 
@@ -354,6 +393,7 @@ public class utl {
 
         }
     }
+
 
 
     public static void changeColorDrawable(ImageView imageView, @ColorRes int res) {
