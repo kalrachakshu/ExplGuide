@@ -511,7 +511,7 @@ private class StartNextRotate implements Animation.AnimationListener {
 
 
 
-            Intent intent=new Intent(ctx,Home.class);
+            Intent intent=new Intent(ctx,Landing.class);
             View v;
             if(provider.contains("facebook"))
             {

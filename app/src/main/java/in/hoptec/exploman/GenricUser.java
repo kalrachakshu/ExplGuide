@@ -37,7 +37,7 @@ public class GenricUser {
         try {
             user_image=""+user.getPhotoUrl().toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            utl.l("NO USER IMAGE at GenricUser(FireBaseUser)");
         }
 
     }

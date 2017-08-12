@@ -23,7 +23,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        utl.diagA(this,"Under Construction ","Welcome ! "+utl.getUser().getDisplayName()
+        utl.diag(this,"Under Construction ","Welcome ! "+utl.getUser().getDisplayName()
                 +" \nThis is demo version of ExplOman ! \nLong Press Map  to logout");
 
     }

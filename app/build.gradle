@@ -45,33 +45,42 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+
 
 
     //android
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
-    compile 'com.android.support:cardview-v7:25.0.1'
-
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
 
     //ui
+
     compile 'com.daniribalbert:custom-font-lib:0.9.8'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.wang.avi:library:2.1.3'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.wang.avi:library:2.1.3'
+    compile 'com.github.mancj:MaterialSearchBar:0.7'
+    compile('com.mikepenz:materialdrawer:5.9.2@aar') {
+        transitive = true
+    }
 
 
     //network
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.android.gms:play-services-maps:11.0.0'
+    compile 'com.google.android.gms:play-services-location:11.0.0'
+
+
     compile 'com.amitshekhar.android:android-networking:0.0.1'
     compile 'com.firebase:firebase-client-android:2.3.1'
     compile 'com.facebook.android:facebook-android-sdk:4.16.1'
     compile 'com.google.android.gms:play-services-auth:11.0.0'
     compile 'com.google.firebase:firebase-auth:11.0.0'
     compile 'com.google.firebase:firebase-messaging:11.0.0'
-
-
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

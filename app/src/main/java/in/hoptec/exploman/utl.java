@@ -47,6 +47,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -338,6 +339,7 @@ public class utl {
         }
 
     }
+
 
 
     public static int getApkVerison(Context ctx)
@@ -642,32 +644,6 @@ public class utl {
     }
 
 
-    public static void diagA(Context c,String title,String desc)
-    {
-        try {
-            final AlertDialog.Builder
-                    alertDialogBuilder = new AlertDialog.Builder
-                    (c,R.style.AnimatedDiag);
-             alertDialogBuilder.setTitle(title);
-            alertDialogBuilder.setMessage(Html.fromHtml(desc));
-            alertDialogBuilder.setNeutralButton("OK", new
-                    DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface
-                                                    dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-
-
-            AlertDialog alertDialog
-                    = alertDialogBuilder.create();
-
-
-            alertDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public static void toast(Context c,String t) {
@@ -776,7 +752,7 @@ public class utl {
             e.printStackTrace();
         }
         if(result==null)
-            result=uri.toString().replace("file://","");
+            result=uri.getPath().replace("file://","").replace("%20"," ");
         utl.l("Found File path "+result);
         return result;
     }
@@ -875,6 +851,60 @@ public class utl {
     }
 
 
+
+
+    public static  boolean writeFile(String file,String text)
+    {
+
+        String data= Constants.folder+"/"+file;
+        FileOperations fop=new FileOperations();
+        Gson g=new Gson();
+        fop.write(data,text);
+        Log.d("DATA WROTE",""+fop.read(data));
+        return  true;
+    }
+
+
+
+
+    public static String readFile(String file)
+    {
+        String data= Constants.folder+"/"+file;
+        if(!new File(data).exists())
+            return null;
+        FileOperations fop=new FileOperations();
+
+        Log.d("DATA READ",""+fop.read(data));
+        return  fop.read(data);
+
+
+
+    }
+
+    public static void clearCache()
+    {
+
+        File cache=new File(Constants.getFolder());
+        for(File f: cache.listFiles())
+        {
+
+            f.delete();
+
+        }
+
+
+        File folder=new File(Constants.getFolder());
+        for(File f: folder.listFiles())
+        {
+            if(f.getName().contains(".mp4")||f.getName().contains(".png"))
+            {
+                f.delete();
+            }
+        }
+
+
+
+    }
 
 
 
@@ -986,14 +1016,15 @@ public class utl {
                 dialog.getWindow().getAttributes().alpha = 0.7f;
 
 
-
-                dialog.setTitle("Select Content Language");
-
                 dialog.setContentView(R.layout.gen_load);
                 //  dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.setCanceledOnTouchOutside(true);
                 dialog.setCancelable(true);
+
                 dialog.show();
+                AVLoadingIndicatorView splashView=(AVLoadingIndicatorView)dialog.findViewById(R.id.splash_view2);
+                splashView.show();
+
 
             }
             else   {
@@ -1046,7 +1077,6 @@ public class utl {
 
 
     }
-
 
 
 
