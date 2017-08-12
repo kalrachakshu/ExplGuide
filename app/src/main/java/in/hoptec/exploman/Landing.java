@@ -3,6 +3,7 @@ package in.hoptec.exploman;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -52,6 +55,8 @@ import com.mikepenz.materialize.util.UIUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Field;
 
 public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -78,6 +83,17 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.app_name);
+
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            TextView  titleTextView = (TextView) f.get(toolbar);
+
+            titleTextView.setTypeface(utl.getFace(utl.CAVIAR,ctx));
+
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        }
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -260,7 +276,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         // Create the AccountHeader
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
+                .withHeaderBackground(R.drawable.bg_black)
                 .addProfiles(
                         profile
                 )
@@ -277,12 +293,14 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withGenerateMiniDrawer(true)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home).withIdentifier(1).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                        new PrimaryDrawerItem().withName("My Tours").withIcon(R.drawable.tour).withIdentifier(2).withSelectable(true).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+
+                        new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                        new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
                         new SectionDrawerItem().withName("Wallet"),
-                        new PrimaryDrawerItem().withName("Help & Support").withIcon(R.drawable.help).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                        new PrimaryDrawerItem().withName("Logout").withIcon(R.drawable.minus).withTag("Bullhorn").withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx))
-                ) // add the items we want to use with our Drawer
+                        new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                        new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_minus).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx))
+
+                     )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
