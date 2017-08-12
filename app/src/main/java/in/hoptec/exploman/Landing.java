@@ -42,6 +42,8 @@ import com.mikepenz.materialdrawer.MiniDrawer;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.MiniDrawerItem;
+import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -364,7 +366,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
          * this animate the height of the profile to the height of the AccountHeader and
          * animates the height of the drawerItems to the normal drawerItems so the difference between Mini and normal Drawer is eliminated
          **/
-        /*
+
         final double headerHeight = DrawerUIUtils.getOptimalDrawerWidth(this) * 9d / 16d;
         final double originalProfileHeight = UIUtils.convertDpToPixel(72, this);
         final double headerDifference = headerHeight - originalProfileHeight;
@@ -387,6 +389,6 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 miniResult.getAdapter().notifyDataSetChanged();
             }
         });
-        */
+
     }
 }
