@@ -2,11 +2,14 @@ package in.hoptec.exploman;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -17,11 +20,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.BitmapRequestListener;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -60,6 +65,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +76,9 @@ import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import in.hoptec.exploman.adapters.PopUpAdapter;
 import in.hoptec.exploman.database.Place;
+import in.hoptec.exploman.utils.GenricCallback;
 
 public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -117,6 +126,15 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
     public void showMarkers(ArrayList<Place> places)
     {
+
+        mMap.clear();
+
+        if(places.size()<1)
+        {
+            utl.hideSoftKeyboard(act);
+            utl.snack(act,"No Results !");
+            return;
+        }
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
 //the include method will calculate the min and max bound.
@@ -150,6 +168,8 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     ArrayList<Place> places;
     public void getNearby()
     {
+
+
         //TODO change range
         String url=Constants.HOST+Constants.API_GET_PLACES+"?mode=coor&range=100000&lat="+loc.getLatitude()+"lng="+loc.getLongitude();
         utl.l(url);
@@ -243,7 +263,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         CameraPosition position =
                 new CameraPosition.Builder().target(new LatLng(lat, lng))
-                        .zoom(15.5f)
+                        .zoom(8.5f)
                         .bearing(0)
                         .tilt(25)
                         .build();
@@ -287,14 +307,152 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                // mMap.animateCamera(update, callback);
 
     }
-
+boolean ald=false;
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+
+            marker.showInfoWindow();
+
+            utl.snack(findViewById(R.id.activity_home), "" + marker.getTitle(), "VIEW", new GenricCallback() {
+                @Override
+                public void onStart() {
+
+
+                    utl.snack(act,"UNDER CONSTRUCTION !");
+                }
+
+                @Override
+                public void onDo(Object obj) {
+
+                }
+
+                @Override
+                public void onDo(Object obj, Object obj2) {
+
+                }
+
+                @Override
+                public void onDone(Object obj) {
+
+                }
+            });
+
+            return false;
+        }
+    });
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+
+                utl.snack(findViewById(R.id.activity_home), "" + marker.getTitle(), "VIEW", new GenricCallback() {
+                    @Override
+                    public void onStart() {
+
+
+                        utl.snack(act,"UNDER CONSTRUCTION !");
+                    }
+
+                    @Override
+                    public void onDo(Object obj) {
+
+                    }
+
+                    @Override
+                    public void onDo(Object obj, Object obj2) {
+
+                    }
+
+                    @Override
+                    public void onDone(Object obj) {
+
+                    }
+                });
+
+
+
+            }
+        });
+
         // Add a marker in Sydney and move the camera
-        mMap.addMarker(getMarker(-34, 151,"Sydney"));
-        goToMarker(getMarker(-34, 151,"Sydney"));
+         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            // Use default InfoWindow frame
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            // Defines the contents of the InfoWindow
+            @Override
+            public View getInfoContents(final Marker marker) {
+
+                // Getting view from the layout file info_window_layout
+                View v = getLayoutInflater().inflate(R.layout.mp_info, null);
+
+
+
+                // Getting the position from the marker
+                LatLng latLng = marker.getPosition();
+
+                // Getting reference to the TextView to set latitude
+                final ImageView im=(ImageView)v.findViewById(R.id.image);
+                TextView tvLat = (TextView) v.findViewById(R.id.name);
+
+
+                for (final Place place:places
+                        ) {
+
+
+                    if(marker.getPosition().latitude==place.lat&&marker.getPosition().longitude==place.lng)
+                    {
+                        try {
+
+
+                              Picasso.with(ctx).load(place.getImages().get(0)).into(im, new Callback() {
+                                  @Override
+                                  public void onSuccess() {
+                                      utl.l("picsaseo loded");
+                                      if (marker != null && marker.isInfoWindowShown()) {
+                                          marker.hideInfoWindow();
+                                          marker.showInfoWindow();
+                                      }
+                                  }
+
+                                  @Override
+                                  public void onError() {
+                                      utl.l("picsaseo err");
+
+                                  }
+                              });
+
+                            place.marked=true;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        tvLat.setText(place.name);
+                        break;
+
+
+                    }
+
+
+
+                }
+
+
+                    return v;
+
+            }
+
+        });
 
     }
 
@@ -450,6 +608,9 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 mMap.clear();
                 mark( loc.getLatitude(),loc.getLongitude(),"Me",true);
                 getNearby();
+            }
+            else{
+                utl.snack(act,"Location Unavilable !");
             }
 
         }
