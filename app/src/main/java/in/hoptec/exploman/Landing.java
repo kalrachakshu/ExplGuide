@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,11 +25,15 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
@@ -84,7 +89,9 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setTitle("");
+
+        city = (TextView)  findViewById(R.id.toolbar_title);
 
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
@@ -109,28 +116,83 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
 
 
-
-
-
-
-
-
-
-
-
     }
 
 
 
     /**********************   MAP   ********************************/
+    public void mark(double lat,double lng,String title,boolean animate)
+    {
+
+        LatLng latLng = new LatLng(lat, lng);
+
+        MarkerOptions mk= new MarkerOptions().position(latLng).title(""+title);
+         mk.icon(BitmapDescriptorFactory.fromResource(R.drawable.ub__pin_pickup));
+        mMap.addMarker(mk);
+       if(animate)
+        goToMarker(mk);
+
+
+
+    }
+    public CameraPosition getCam(double lat,double lng)
+    {
+
+        CameraPosition position =
+                new CameraPosition.Builder().target(new LatLng(lat, lng))
+                        .zoom(15.5f)
+                        .bearing(0)
+                        .tilt(25)
+                        .build();
+
+
+    return position;
+    }
+
+    public MarkerOptions getMarker(double lat,double lng,String title)
+    {
+        LatLng latLng = new LatLng(lat, lng);
+
+        MarkerOptions mk= new MarkerOptions().position(latLng).title(""+title);
+
+        return mk;
+    }
+    public void goToMarker(MarkerOptions mrk) {
+        changeCamera(CameraUpdateFactory.newCameraPosition(getCam(mrk.getPosition().latitude,mrk.getPosition().longitude)), new GoogleMap.CancelableCallback() {
+            @Override
+            public void onFinish() {
+               // Toast.makeText(getBaseContext(), "Animation to Sydney complete", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+               // Toast.makeText(getBaseContext(), "Animation to Sydney canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    /**
+     * Change the camera position by moving or animating the camera depending on the state of the
+     * animate toggle button.
+     */
+    private void changeCamera(CameraUpdate update, GoogleMap.CancelableCallback callback) {
+             int duration = 1000;
+                // The duration must be strictly positive so we make it at least 1.
+                mMap.animateCamera(update, Math.max(duration, 1), callback);
+
+               // mMap.animateCamera(update, callback);
+
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.addMarker(getMarker(-34, 151,"Sydney"));
+        goToMarker(getMarker(-34, 151,"Sydney"));
+
     }
 
 
@@ -151,7 +213,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
                                 utl.l("Location : "+location);
                                 utl.writeFile("loc",utl.js.toJson(location));
-
+                                getCity();
 
                             }
                         }
@@ -159,11 +221,19 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String  locj=utl.readFile("loc");
+        if(locj!=null) {
+
+            loc=utl.js.fromJson(locj,Location.class);
+            city.setText("");
+            getCity();
+        }
 
     }
 
 
     String json="";
+    Location loc;
     TextView city;
     public void getCity ()   {
 
@@ -264,8 +334,27 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
      return true;
  }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
 
+        if(item.getItemId()==R.id.location)
+        {
+            if(loc!=null)
+            {
+                mMap.clear();
+                mark( loc.getLatitude(),loc.getLongitude(),"Me",true);
+            }
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+
+
+
+
+    }
 
     private AccountHeader headerResult = null;
     private Drawer result = null;
