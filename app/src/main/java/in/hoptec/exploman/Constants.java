@@ -13,12 +13,15 @@ public class Constants {
 
 
 
-    public static String HOST="http://192.168.23.3";
+    public static String HOST="http://10.42.0.81/exploman";
 
-    public static String API_USER_REG_GET="/createuser.php";
-    public static String API_USER_LOGIN_GET="/login.php";
+    public static String API_USER_REG_GET="/api/createuser.php";
+    public static String API_USER_LOGIN_GET="/api/login.php";
 
+    //http://127.0.0.1/exploman/api/get_places.php?mode=coor&lat=22.98&lng=57.53
 
+    //@ GET mode=coor|search   lat,lng | query
+    public static String API_GET_PLACES="/api/get_places.php";
 
     public static boolean IS_ANIMATED_BG_SPLASH=false;
     public static boolean isPdCancelable=true;

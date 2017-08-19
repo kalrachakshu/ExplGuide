@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,6 +66,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
+import in.hoptec.exploman.database.Place;
 
 public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -92,18 +98,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         getSupportActionBar().setTitle("");
 
         city = (TextView)  findViewById(R.id.toolbar_title);
-
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            TextView  titleTextView = (TextView) f.get(toolbar);
-
-            titleTextView.setTypeface(utl.getFace(utl.CAVIAR,ctx));
-
-        } catch (NoSuchFieldException e) {
-        } catch (IllegalAccessException e) {
-        }
-
+        city.setText("Explo Oman");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -118,7 +113,115 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
+    /************************   APIS  ****************************/
 
+    public void showMarkers(ArrayList<Place> places)
+    {
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+//the include method will calculate the min and max bound.
+
+
+        for (Place place:places
+             ) {
+
+
+            mark(place.lat,place.lng,place.name,false);
+            builder.include(getMarker(place.lat,place.lng,place.name).getPosition());
+
+
+
+        }
+
+        LatLngBounds bounds = builder.build();
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
+        mMap.animateCamera(cu);
+
+
+
+
+    }
+    ArrayList<Place> places;
+    public void getNearby()
+    {
+        //TODO change range
+        String url=Constants.HOST+Constants.API_GET_PLACES+"?mode=coor&range=100000&lat="+loc.getLatitude()+"lng="+loc.getLongitude();
+        utl.l(url);
+
+        AndroidNetworking.get(url).build().getAsJSONArray(new JSONArrayRequestListener() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                places=new ArrayList<Place>();
+              for(int i=0;i<response.length();i++){
+
+                  try {
+                      places.add(utl.js.fromJson(response.get(i).toString(),Place.class));
+                  } catch (JSONException e) {
+                      e.printStackTrace();
+                  }
+
+
+
+              }showMarkers(places);
+
+
+
+
+            }
+
+            @Override
+            public void onError(ANError ANError) {
+                utl.l("getNearby 164"+ANError.getErrorDetail());
+            }
+        });
+
+
+
+    }
+
+    public void search(String query)
+    {
+
+        String url=Constants.HOST+Constants.API_GET_PLACES+"?mode=search&query="+ URLEncoder.encode(query);
+        utl.l(url);
+
+        AndroidNetworking.get(url).build().getAsJSONArray(new JSONArrayRequestListener() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                places=new ArrayList<Place>();
+                for(int i=0;i<response.length();i++){
+
+                    try {
+                        places.add(utl.js.fromJson(response.get(i).toString(),Place.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                showMarkers(places);
+
+
+
+
+            }
+
+            @Override
+            public void onError(ANError ANError) {
+                utl.l("getNearby 164"+ANError.getErrorDetail());
+            }
+        });
+
+
+    }
 
     /**********************   MAP   ********************************/
     public void mark(double lat,double lng,String title,boolean animate)
@@ -317,7 +420,9 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
          @Override
          public boolean onQueryTextSubmit(String query) {
 
-             utl.snack(act,""+query);
+            // utl.snack(act,""+query);
+
+             search(query);
 
              return false;
          }
@@ -344,6 +449,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
             {
                 mMap.clear();
                 mark( loc.getLatitude(),loc.getLongitude(),"Me",true);
+                getNearby();
             }
 
         }

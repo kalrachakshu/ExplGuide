@@ -27,15 +27,15 @@
 
 
         <com.daniribalbert.customfontlib.views.CustomFontTextView
-            app:font="Avenir-Medium"
+            app:font="ClanPro-Book"
             android:padding="10dp"
             android:id="@+id/toolbar_title"
-            android:textColor="@color/color_splash_accent"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:gravity="center"
-            android:visibility="invisible"
+
             android:text="@string/app_name"
-            android:textSize="23sp"
+            android:textSize="17sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
