@@ -1,5 +1,6 @@
 package in.hoptec.exploman.database;
 
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -37,12 +38,14 @@ public class Place {
     public String images;
     @SerializedName("rating")
     @Expose
-    public String rating;
+    public Double rating;
     @SerializedName("distance")
     @Expose
     public String distance;
 
     public boolean marked=false;
+
+    public MarkerOptions marker;
 
 
     public ArrayList<String> getImages()

@@ -67,7 +67,11 @@
 
         <activity
             android:name=".Landing"
-            android:label="@string/title_activity_landing"></activity>
+            android:label="@string/title_activity_landing" />
+        <activity
+            android:name=".PlaceDetails"
+            android:label="@string/title_activity_place_details"
+            android:theme="@style/FullScreen"></activity>
     </application>
 
 </manifest>
