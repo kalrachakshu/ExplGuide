@@ -11,6 +11,12 @@
         android:layout_height="200dp">
 
 
+        <ImageView
+            android:layout_margin="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/imageView" />
+
 
 
     </android.support.v7.widget.Toolbar>
