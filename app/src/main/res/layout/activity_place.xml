@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
@@ -8,20 +10,310 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
-
-
-        <ImageView
-            android:layout_margin="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/imageView" />
-
+        android:layout_height="wrap_content">
 
 
     </android.support.v7.widget.Toolbar>
 
 
+    <LinearLayout
+        android:background="@color/blue_800"
+        android:id="@+id/flip_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/flip" />
 
 
-</LinearLayout>
+        <in.hoptec.exploman.views.GoalProgressBar
+            android:id="@+id/prog"
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+    </LinearLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_margin="4dp"
+        android:id="@+id/scrl"
+
+        android:layout_below="@+id/flip_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <android.support.v7.widget.CardView
+                app:cardElevation="4dp"
+                app:cardCornerRadius="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:background="@color/grey_200"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <com.daniribalbert.customfontlib.views.CustomFontTextView
+                        app:font="avenir-next-regular"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:text="Choose Login"
+                        android:id="@+id/title"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:layout_margin="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.1"
+                        android:layout_height="match_parent"/>
+
+
+                    <LinearLayout
+
+                        android:layout_gravity="center"
+                        android:weightSum="1"
+                        android:background="@color/grey_200"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+
+
+                        <in.hoptec.exploman.views.RoundedImageView
+                            android:padding="5dp"
+                            android:visibility="gone"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/user"
+                            android:id="@+id/opt"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+                        <com.daniribalbert.customfontlib.views.CustomFontTextView
+
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:layout_marginLeft="10dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:id="@+id/address"
+                            android:gravity="center_vertical"
+                            android:textSize="15sp"
+                            android:text="Hi ! this is me"
+                            android:textColor="@color/grey_800"
+                            app:font="Avenir-Medium"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+
+
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:paddingRight="10dp"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" >
+                        <android.support.v7.widget.AppCompatRatingBar
+
+                            android:max="5"
+                            android:progressDrawable="@drawable/rate_color"
+                            android:id="@+id/rating"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+                    <com.daniribalbert.customfontlib.views.CustomFontTextView
+                        app:font="Avenir-Medium"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/grey_900"
+                        android:layout_gravity="center"
+                        android:gravity="left"
+                        android:text="Choose Login"
+                        android:id="@+id/desc"
+                        android:textSize="14sp"
+                        android:layout_margin="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.1"
+                        android:layout_height="match_parent"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+
+                app:cardElevation="4dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+
+                app:cardElevation="4dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+
+                    android:background="@color/grey_200"
+                    android:id="@+id/hold"
+                    android:weightSum="0.6"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+
+                    <ImageView
+                        android:id="@+id/review"
+                        android:src="@drawable/ic_rate_review_36pt_3x"
+                        android:layout_weight="0.2"
+                        android:padding="18dp"
+                        android:scaleType="centerInside"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+
+
+                    <ImageView
+                        android:background="@color/green_300"
+                        android:id="@+id/go"
+                        android:src="@drawable/ic_next_week_white_48dp"
+                        android:layout_weight="0.2"
+                        android:padding="13dp"
+                        android:scaleType="centerInside"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+
+
+                    <ImageView
+                        android:id="@+id/bookmark"
+                        android:src="@drawable/ic_bookmark_black_48dp"
+                        android:layout_weight="0.2"
+                        android:padding="16dp"
+                        android:scaleType="centerInside"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+
+
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+            <View
+                android:layout_margin="7dp"
+                android:background="@color/grey_600"
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                />
+
+
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+                app:font="CaviarDreams"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:text="COMMENTS"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_weight="0.1"
+                android:layout_height="match_parent"/>
+
+
+
+
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rec"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+</RelativeLayout>

@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRatingBar;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -19,14 +20,63 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import in.hoptec.exploman.database.Place;
+import in.hoptec.exploman.views.GoalProgressBar;
 
 public class PlaceDetails extends AppCompatActivity {
 
 
     @BindView(R.id.imageView)
     ImageView flip;
+
+
+
+    @BindView(R.id.prog)
+    GoalProgressBar prog;
+
+    @BindView(R.id.load)
+    TextView load;
+
+
+    @BindView(R.id.rec)
+    RecyclerView rec;
+
+    @BindView(R.id.title)
+    TextView title;
+
+    @BindView(R.id.address)
+    TextView address;
+
+    @BindView(R.id.rating)
+    AppCompatRatingBar rate;
+
+    @BindView(R.id.opt)
+    ImageView userimage;
+
+    @BindView(R.id.desc)
+    TextView desc;
+
+
+    @BindView(R.id.scrl)
+    NestedScrollView scrl;
+
+
+    @BindView(R.id.review)
+    ImageView review;
+
+    @BindView(R.id.go)
+    ImageView go;
+
+    @BindView(R.id.bookmark)
+    ImageView bookmark;
+
+
+
+
     public Context ctx;
     public Activity act;
+
+    Place place;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +84,27 @@ public class PlaceDetails extends AppCompatActivity {
         setContentView(R.layout.activity_place);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        flip=(ImageView)findViewById(R.id.flip);
+
+
+        place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
+
+        if(place!=null)
+        {
+            fill(place);
+        }
+
+
+
+    }
+
+    public void fill(Place pla)
+    {
+
+
+
+
 
     }
 
