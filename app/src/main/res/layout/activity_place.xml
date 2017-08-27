@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,12 +18,14 @@
 
 
     <LinearLayout
-        android:background="@color/blue_800"
+        android:transitionName="@string/activity_image_trans"
         android:id="@+id/flip_bg"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/flip" />
@@ -31,7 +34,7 @@
         <in.hoptec.exploman.views.GoalProgressBar
             android:id="@+id/prog"
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
@@ -262,11 +265,57 @@
 
 
             <LinearLayout
+
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_marginTop="30dp"
+                    android:id="@+id/splash_view2"
+                    android:layout_gravity="center"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AVLoadingIndicatorView"
+                    android:visibility="visible"
+                    app:indicatorName="LineScalePartyIndicator"
+                    app:indicatorColor="@color/red_700"
+                    />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/write_rev"
+                        android:src="@drawable/ic_rate_review_36pt_3x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.daniribalbert.customfontlib.views.CustomFontTextView
+                        app:font="CaviarDreams"
+                        android:layout_gravity="center"
+                        android:gravity="left"
+                        android:text="Be the first to write a review !"
+                        android:textSize="14sp"
+                        android:layout_margin="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.1"
+                        android:layout_height="match_parent"/>
+
+
+
+
+                </LinearLayout>
+
+
                 <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
                     android:id="@+id/rec"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:layout_width="match_parent"

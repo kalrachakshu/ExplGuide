@@ -245,6 +245,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         for (int i = 0; i < places.size(); i++) {
             final Place place = places.get(i);
             place.marker = getMarker(place.lat, place.lng, place.name);
+            utl.l("Adding place : "+place.name);
             places.set(i, place);
 
         }
@@ -558,6 +559,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                         }
 
                         tvLat.setText(place.name);
+                        utl.l("Info w : "+place.name);
                         break;
 
 

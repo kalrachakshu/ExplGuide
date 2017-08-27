@@ -128,12 +128,17 @@ public class PlaceDetails extends AppCompatActivity {
             @Override
             public void run() {
 
-                if(dr==strip.size()-1)
+                utl.l("Streip size "+strip.size());
+
+
+                Picasso.with(ctx).load(strip.get(dr)).placeholder(R.drawable.placeholder).into(flip);
+                if(dr<strip.size()-1)
                 {
+                    dr++;
+                }
+                else {
                     dr=0;
                 }
-
-                Picasso.with(ctx).load(strip.get(dr++)).into(flip);
                 // flip.setImageResource(d);
                 YoYo.with(Techniques.SlideInLeft).withListener(new Animator.AnimatorListener() {
                     @Override

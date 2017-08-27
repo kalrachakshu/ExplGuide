@@ -57,6 +57,7 @@
         android:layout_height="50dp">
 
     <LinearLayout
+        android:padding="5dp"
         android:orientation="vertical"
         android:layout_weight="0.8"
         android:layout_width="0dp"
@@ -65,7 +66,6 @@
 
         <com.daniribalbert.customfontlib.views.CustomFontTextView
             app:font="ClanPro-Book"
-            android:padding="5dp"
             android:id="@+id/name"
             android:textColor="@color/black"
             android:layout_gravity="bottom"
@@ -78,7 +78,6 @@
         <android.support.v7.widget.AppCompatRatingBar
             android:rating="4"
             android:id="@+id/rate"
-            android:layout_margin="5dp"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

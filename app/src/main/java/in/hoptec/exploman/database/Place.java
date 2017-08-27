@@ -18,7 +18,7 @@ public class Place {
     @SerializedName("id")
     @Expose
     public String id;
-    @SerializedName("tvName")
+    @SerializedName("name")
     @Expose
     public String name;
     @SerializedName("desc")
