@@ -7,6 +7,54 @@
     android:layout_height="match_parent">
 
 
+    <in.hoptec.exploman.views.GoalProgressBar
+        android:visibility="gone"
+        android:id="@+id/prog"
+        app:goalReachedColor="@color/black"
+        app:goalNotReachedColor="@color/grey_200"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <RelativeLayout
+        android:transitionName="@string/activity_image_trans"
+        android:id="@+id/flip_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" >
+
+
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/flip" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/grad"/>
+
+
+
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            app:font="avenir-next-regular"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="Choose Login"
+            android:id="@+id/title"
+            android:textIsSelectable="true"
+            android:textColor="@color/white"
+            android:textSize="23sp"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,31 +64,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-
-    <LinearLayout
-        android:transitionName="@string/activity_image_trans"
-        android:id="@+id/flip_bg"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/flip" />
-
-
-        <in.hoptec.exploman.views.GoalProgressBar
-            android:id="@+id/prog"
-            app:goalReachedColor="@color/black"
-            app:goalNotReachedColor="@color/grey_200"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_margin="4dp"
         android:id="@+id/scrl"
 
@@ -70,21 +94,6 @@
                     android:layout_height="wrap_content">
 
 
-
-                    <com.daniribalbert.customfontlib.views.CustomFontTextView
-                        app:font="avenir-next-regular"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="left"
-                        android:text="Choose Login"
-                        android:id="@+id/title"
-                        android:textIsSelectable="true"
-                        android:textColor="@color/black"
-                        android:textSize="23sp"
-                        android:layout_margin="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.1"
-                        android:layout_height="match_parent"/>
 
 
                     <LinearLayout
@@ -132,8 +141,9 @@
                         <android.support.v7.widget.AppCompatRatingBar
 
                             android:max="5"
+                            android:stepSize="1"
                              android:id="@+id/rating"
-                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            style="@style/RatingBar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         </LinearLayout>
@@ -366,7 +376,7 @@
 
 
 
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
 
 

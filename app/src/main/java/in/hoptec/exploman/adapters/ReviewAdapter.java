@@ -90,11 +90,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
 
         cv.tvName.setText( (cat.userFname));
         cv.tvComment.setText( (cat.message));
-        cv.time.setText(cat.getCreatedAt());
+        //cv.time.setText(cat.getCreatedAt());
 
         try {
-            Picasso.with(ctx).load(cat.userImage).placeholder(R.drawable.user).into(cv.opt);
             utl.l(cat.userImage);
+
+            Picasso.with(ctx).load(cat.userImage).placeholder(R.drawable.user).into(cv.ivUserAvatar);
 
             cv.line.setBackgroundColor(ctx.getResources().getColor(col));
             count++;
@@ -116,7 +117,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
                 cab.click(cat,id,cv.view);
             }
         });
-        cv.line.setVisibility(View.INVISIBLE);
+       // cv.line.setVisibility(View.INVISIBLE);
 
 
     }
@@ -141,7 +142,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder
 {
     public View view;
 
-    public ImageView ivUserAvatar,opt,like,play;
+    public ImageView ivUserAvatar,like,play;
     public TextView tvName, tvComment,time;
     public WebView wb;
     public View line;

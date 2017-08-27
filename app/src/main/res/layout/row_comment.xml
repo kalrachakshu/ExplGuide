@@ -32,6 +32,7 @@
                 app:font="avenir-next-regular"
                 android:id="@+id/tvName"
                 android:textSize="15sp"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="John Doe" />
@@ -40,6 +41,7 @@
             app:font="avenir-next-regular"
             android:textSize="13sp"
             android:id="@+id/tvComment"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet" />

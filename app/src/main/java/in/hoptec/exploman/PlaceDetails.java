@@ -73,10 +73,6 @@ public class PlaceDetails extends AppCompatActivity {
     TextView desc;
 
 
-    @BindView(R.id.scrl)
-    NestedScrollView scrl;
-
-
     @BindView(R.id.review)
     ImageView review;
 
@@ -104,6 +100,9 @@ public class PlaceDetails extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ctx=this;
+        act=this;
+
         flip=(ImageView)findViewById(R.id.flip);
 
 
@@ -117,6 +116,8 @@ public class PlaceDetails extends AppCompatActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
 
 
     }
@@ -228,12 +229,14 @@ public class PlaceDetails extends AppCompatActivity {
         rec.setLayoutManager(new LinearLayoutManager(ctx));
         rec.setAdapter(adapter);
 
+        rec.setNestedScrollingEnabled(false);
 
 
     }
     public void fill(Place pla)
     {
 
+        utl.l(pla.toString());
         title.setText(pla.name);
         desc.setText(pla.desc);
         rate.setRating(pla.rating.floatValue());
@@ -255,6 +258,7 @@ public class PlaceDetails extends AppCompatActivity {
     ArrayList<String> strip;
     public void flip()
     {
+
 
 
         if(strip.size()<=1)

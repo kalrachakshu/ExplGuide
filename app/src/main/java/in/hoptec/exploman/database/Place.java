@@ -8,6 +8,8 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+import in.hoptec.exploman.utl;
+
 /**
  * Created by shivesh on 19/8/17.
  */
@@ -68,6 +70,10 @@ public class Place {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        Place pl=this;
+        pl.marker=null;
+        return utl.js.toJson(pl);
+    }
 }
