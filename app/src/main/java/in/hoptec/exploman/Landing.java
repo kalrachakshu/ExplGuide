@@ -3,6 +3,7 @@ package in.hoptec.exploman;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -80,6 +82,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import in.hoptec.exploman.adapters.PopUpAdapter;
 import in.hoptec.exploman.database.Place;
@@ -90,78 +93,78 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     Toolbar toolbar;
     GenricUser user;
-
-    public  Context ctx;
-    public  Activity act;
+    SupportMapFragment mapFragment;
+    public Context ctx;
+    public Activity act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ctx=this;
-        act=this;
-
+        ctx = this;
+        act = this;
 
 
         setContentView(R.layout.activity_home);
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        user=utl.readUserData();
+        user = utl.readUserData();
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
-        city = (TextView)  findViewById(R.id.toolbar_title);
+        city = (TextView) findViewById(R.id.toolbar_title);
         city.setText("Explo Oman");
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
 
         setUpLocation();
         setUpDrawer(savedInstanceState);
         showBottomBar(null);
 
 
+    }
 
+     @Override
+    protected void onPause() {
 
+        super.onPause();
     }
 
     /************************   APIS  ****************************/
 
-    public void export(Place plc)
-    {
+    public void export(Place plc) {
 
-        Intent it=new Intent(ctx,PlaceDetails.class);
+        Intent it = new Intent(ctx, PlaceDetails.class);
 
-        it.putExtra("place",utl.js.toJson(plc));
-
+        it.putExtra("place", utl.js.toJson(plc));
 
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(act, findViewById(R.id.bottom), getString(R.string.activity_image_trans));
-                startActivity(it, options.toBundle());
-            }
-            else {
-                startActivity(it);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(act, findViewById(R.id.bottom), getString(R.string.activity_image_trans));
+            startActivity(it, options.toBundle());
+        } else {
+            startActivity(it);
+        }
 
 
     }
-    public Place getPlaceByMarker(Marker mr)
-    {
+
+    public Place getPlaceByMarker(Marker mr) {
 
 
         utl.l(places.size());
-         Place fnd=null;
-        for (Place place:places
+        Place fnd = null;
+        for (Place place : places
                 ) {
 
             //utl.l("Search : "+place.lat+" / "+place.lng+"\n and "+mr.getPosition().toString() );
-                if(place.lat==mr.getPosition().latitude&&place.lng==mr.getPosition().longitude)
-                  fnd= place;
+            if (place.lat == mr.getPosition().latitude && place.lng == mr.getPosition().longitude)
+                fnd = place;
 
         }
 
@@ -170,71 +173,87 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
 
     }
-    public void showBottomBar(final Place plc)
+
+    //todo show packages
+    public void packages()
     {
-        LinearLayout lt=(LinearLayout)findViewById(R.id.bottom);
-        if(plc==null)
-        {
-            lt.setVisibility(View.GONE);
-            return;
-        }
-
-        utl.l("showing place :" + utl.js.toJson(plc));
-        lt.setVisibility(View.VISIBLE);
-
-        TextView name=(TextView)findViewById(R.id.name);
-        AppCompatRatingBar rate=(AppCompatRatingBar)findViewById(R.id.rate);
-        ImageView go=(ImageView)findViewById(R.id.go);
-
-        rate.setRating(plc.rating.floatValue());
-        rate.setRating(4.5f);
-        name.setText(plc.name);
-
-        utl.changeColorDrawable(go,R.color.blue_600);
-
-        lt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                export(plc);
-            }
-        });
-
 
 
 
 
     }
-    public void showMarkers(ArrayList<Place> places)
-    {
+    public void showBottomBar(final Place plc) {
+        LinearLayout lt = (LinearLayout) findViewById(R.id.bottom);
+
+        TextView name = (TextView) findViewById(R.id.name);
+        AppCompatRatingBar rate = (AppCompatRatingBar) findViewById(R.id.rate);
+        ImageView go = (ImageView) findViewById(R.id.go);
+
+
+        if (plc == null) {
+           // lt.setVisibility(View.GONE);
+            name.setText("Special Packages");
+            rate.setVisibility(View.INVISIBLE);
+
+            lt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    packages();
+                }
+            });
+            return;
+        }
+
+
+            utl.l("showing place :" + utl.js.toJson(plc));
+            lt.setVisibility(View.VISIBLE);
+
+            rate.setRating(plc.rating.floatValue());
+            rate.setRating(4.5f);
+            name.setText(plc.name);
+
+            utl.changeColorDrawable(go, R.color.blue_600);
+
+            lt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    export(plc);
+                }
+            });
+
+
+    }
+
+    public void showMarkers(ArrayList<Place> places) {
 
 
         mMap.clear();
 
         showBottomBar(null);
-        if(places.size()<1)
-        {
+        if (places.size() < 1) {
             utl.hideSoftKeyboard(act);
-            utl.snack(act,"No Results !");
+            utl.snack(act, "No Results !");
             return;
         }
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
 //the include method will calculate the min and max bound.
 
-        for(int i=0;i<places.size();i++)
-        {
-            final Place place=places.get(i);
-            place.marker=getMarker(place.lat,place.lng,place.name);
-            places.set(i,place);
+        for (int i = 0; i < places.size(); i++) {
+            final Place place = places.get(i);
+            place.marker = getMarker(place.lat, place.lng, place.name);
+            places.set(i, place);
 
         }
 
-        for (final Place place:places
-             ) {
+        for (final Place place : places
+                ) {
 
 
-            mark(place.marker,false);
+            mark(place.marker, false);
             builder.include(place.marker.getPosition());
 
         }
@@ -250,58 +269,54 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         mMap.animateCamera(cu);
 
 
-
-
     }
-    ArrayList<Place> places;
-    public void getNearby(Location loc)
-    {
+
+    public static ArrayList<Place> places;
+
+    public void getNearby(Location loc) {
 
 
         //TODO change range
-        String url=Constants.HOST+Constants.API_GET_PLACES+"?mode=coor&range=4000.0&lat="+
-                loc.getLatitude()+"lng="+loc.getLongitude();
+        String url = Constants.HOST + Constants.API_GET_PLACES + "?mode=coor&range=4000.0&lat=" +
+                loc.getLatitude() + "lng=" + loc.getLongitude();
         utl.l(url);
+        BaseApp.last_url=url;
 
         AndroidNetworking.get(url).build().getAsJSONArray(new JSONArrayRequestListener() {
             @Override
             public void onResponse(JSONArray response) {
 
-                places=new ArrayList<Place>();
-              for(int i=0;i<response.length();i++){
+                places = new ArrayList<Place>();
+                for (int i = 0; i < response.length(); i++) {
 
-                  try {
-                      places.add(utl.js.fromJson(response.get(i).toString(),Place.class));
-                  } catch (JSONException e) {
-                      e.printStackTrace();
-                  }
+                    try {
+                        places.add(utl.js.fromJson(response.get(i).toString(), Place.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
-
-              }
+                }
 
                 showMarkers(places);
-
-
 
 
             }
 
             @Override
             public void onError(ANError ANError) {
-                utl.l("getNearby 164"+ANError.getErrorDetail());
+                utl.l("getNearby 164" + ANError.getErrorDetail());
             }
         });
 
 
-
     }
 
-    public void search(String query)
-    {
+    public void search(String query) {
 
-        String url=Constants.HOST+Constants.API_GET_PLACES+"?mode=search&query="+ URLEncoder.encode(query);
+        String url = Constants.HOST + Constants.API_GET_PLACES + "?mode=search&query=" + URLEncoder.encode(query);
         utl.l(url);
+        BaseApp.last_url=url;
 
         AndroidNetworking.get(url).build().getAsJSONArray(new JSONArrayRequestListener() {
             @Override
@@ -309,11 +324,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
                 utl.l(response.toString());
 
-                places=new ArrayList<Place>();
-                for(int i=0;i<response.length();i++){
+                places = new ArrayList<Place>();
+                for (int i = 0; i < response.length(); i++) {
 
                     try {
-                        places.add(utl.js.fromJson(response.get(i).toString(),Place.class));
+                        places.add(utl.js.fromJson(response.get(i).toString(), Place.class));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -323,13 +338,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 showMarkers(places);
 
 
-
-
             }
 
             @Override
             public void onError(ANError ANError) {
-                utl.l("getNearby 164"+ANError.getErrorDetail());
+                utl.l("getNearby 164" + ANError.getErrorDetail());
             }
         });
 
@@ -337,35 +350,31 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     /**********************   MAP   ********************************/
-    public void mark(double lat,double lng,String title,boolean animate)
-    {
+    public void mark(double lat, double lng, String title, boolean animate) {
 
         LatLng latLng = new LatLng(lat, lng);
 
-        MarkerOptions mk= new MarkerOptions().position(latLng).title(""+title);
-         mk.icon(BitmapDescriptorFactory.fromResource(R.drawable.ub__pin_pickup));
-        mMap.addMarker(mk);
-       if(animate)
-        goToMarker(mk);
-
-
-
-    }
-
-
-    public void mark(MarkerOptions mk,boolean animate)
-    {
-
+        MarkerOptions mk = new MarkerOptions().position(latLng).title("" + title);
         mk.icon(BitmapDescriptorFactory.fromResource(R.drawable.ub__pin_pickup));
         mMap.addMarker(mk);
-        if(animate)
+        if (animate)
             goToMarker(mk);
 
 
+    }
+
+
+    public void mark(MarkerOptions mk, boolean animate) {
+
+        mk.icon(BitmapDescriptorFactory.fromResource(R.drawable.ub__pin_pickup));
+        mMap.addMarker(mk);
+        if (animate)
+            goToMarker(mk);
+
 
     }
-    public CameraPosition getCam(double lat,double lng)
-    {
+
+    public CameraPosition getCam(double lat, double lng) {
 
         CameraPosition position =
                 new CameraPosition.Builder().target(new LatLng(lat, lng))
@@ -375,27 +384,27 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                         .build();
 
 
-    return position;
+        return position;
     }
 
-    public MarkerOptions getMarker(double lat,double lng,String title)
-    {
+    public MarkerOptions getMarker(double lat, double lng, String title) {
         LatLng latLng = new LatLng(lat, lng);
 
-        MarkerOptions mk= new MarkerOptions().position(latLng).title(""+title);
+        MarkerOptions mk = new MarkerOptions().position(latLng).title("" + title);
 
         return mk;
     }
+
     public void goToMarker(MarkerOptions mrk) {
-        changeCamera(CameraUpdateFactory.newCameraPosition(getCam(mrk.getPosition().latitude,mrk.getPosition().longitude)), new GoogleMap.CancelableCallback() {
+        changeCamera(CameraUpdateFactory.newCameraPosition(getCam(mrk.getPosition().latitude, mrk.getPosition().longitude)), new GoogleMap.CancelableCallback() {
             @Override
             public void onFinish() {
-               // Toast.makeText(getBaseContext(), "Animation to Sydney complete", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getBaseContext(), "Animation to Sydney complete", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel() {
-               // Toast.makeText(getBaseContext(), "Animation to Sydney canceled", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getBaseContext(), "Animation to Sydney canceled", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -406,19 +415,33 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
      * animate toggle button.
      */
     private void changeCamera(CameraUpdate update, GoogleMap.CancelableCallback callback) {
-             int duration = 1000;
-                // The duration must be strictly positive so we make it at least 1.
-                mMap.animateCamera(update, Math.max(duration, 1), callback);
+        int duration = 1000;
+        // The duration must be strictly positive so we make it at least 1.
+        mMap.animateCamera(update, Math.max(duration, 1), callback);
 
-               // mMap.animateCamera(update, callback);
+        // mMap.animateCamera(update, callback);
 
     }
-boolean ald=false;
+
+    boolean ald = false;
+    public static Marker clicked;
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+             //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -446,6 +469,7 @@ boolean ald=false;
         public boolean onMarkerClick(Marker marker) {
 
             marker.showInfoWindow();
+            clicked=marker;
            // utl.l("Cliecked marker "+marker.getPosition().toString()+"\n"+marker.getTitle());
 
             showBottomBar(getPlaceByMarker(marker));
@@ -487,6 +511,8 @@ boolean ald=false;
             @Override
             public View getInfoContents(final Marker marker) {
 
+                if(places==null)
+                    return null;
                 // Getting view from the layout file info_window_layout
                 View v = getLayoutInflater().inflate(R.layout.mp_info, null);
 
@@ -548,6 +574,40 @@ boolean ald=false;
 
         });
 
+        if(BaseApp.last_url!=null)
+        {
+            AndroidNetworking.get(BaseApp.last_url).build().getAsJSONArray(new JSONArrayRequestListener() {
+                @Override
+                public void onResponse(JSONArray response) {
+
+                    utl.l(response.toString());
+
+                    places = new ArrayList<Place>();
+                    for (int i = 0; i < response.length(); i++) {
+
+                        try {
+                            places.add(utl.js.fromJson(response.get(i).toString(), Place.class));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    showMarkers(places);
+
+
+                }
+
+                @Override
+                public void onError(ANError ANError) {
+                    utl.l("getNearby 164" + ANError.getErrorDetail());
+                }
+            });
+
+        }
+        else {
+            utl.l("Base . places is null gmaps");
+        }
     }
 
 

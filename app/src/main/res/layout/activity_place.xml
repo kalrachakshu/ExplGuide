@@ -112,7 +112,7 @@
                             android:textSize="15sp"
                             android:text="Hi ! this is me"
                             android:textColor="@color/grey_800"
-                            app:font="Avenir-Medium"
+                            app:font="Roboto-Thin"
                             android:layout_width="0dp"
                             android:layout_height="match_parent" />
 
@@ -127,11 +127,10 @@
                         <android.support.v7.widget.AppCompatRatingBar
 
                             android:max="5"
-                            android:progressDrawable="@drawable/rate_color"
-                            android:id="@+id/rating"
+                             android:id="@+id/rating"
                             style="@style/Widget.AppCompat.RatingBar.Small"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -263,7 +262,6 @@
 
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

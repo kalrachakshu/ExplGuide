@@ -20,13 +20,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.hoptec.exploman.database.Place;
 import in.hoptec.exploman.views.GoalProgressBar;
 
 public class PlaceDetails extends AppCompatActivity {
 
 
-    @BindView(R.id.imageView)
     ImageView flip;
 
 
@@ -34,12 +34,7 @@ public class PlaceDetails extends AppCompatActivity {
     @BindView(R.id.prog)
     GoalProgressBar prog;
 
-    @BindView(R.id.load)
-    TextView load;
 
-
-    @BindView(R.id.rec)
-    RecyclerView rec;
 
     @BindView(R.id.title)
     TextView title;
@@ -71,6 +66,8 @@ public class PlaceDetails extends AppCompatActivity {
     ImageView bookmark;
 
 
+    @BindView(R.id.rec)
+    RecyclerView rec;
 
 
     public Context ctx;
@@ -88,6 +85,7 @@ public class PlaceDetails extends AppCompatActivity {
         flip=(ImageView)findViewById(R.id.flip);
 
 
+        ButterKnife.bind(this);
         place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
 
         if(place!=null)
@@ -102,6 +100,13 @@ public class PlaceDetails extends AppCompatActivity {
     public void fill(Place pla)
     {
 
+        title.setText(pla.name);
+        desc.setText(pla.desc);
+        rate.setRating(pla.rating.floatValue());
+        address.setText(pla.address);
+
+        strip=pla.getImages();
+        flip();
 
 
 

@@ -22,7 +22,7 @@
     <string name="title_activity_landing">Map</string>
     <string name="title_activity_place_details">PlaceDetails</string>
 
-    <!-- <string name="default_web_client_id">177983366071638</string> -->
+    <!-- <string tvName="default_web_client_id">177983366071638</string> -->
 
 
 </resources>

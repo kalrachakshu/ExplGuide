@@ -806,7 +806,7 @@ public class utl {
     public static void setShared(Context ctx)
     {
         /*
-        editor.putString("name", "Elena");
+        editor.putString("tvName", "Elena");
         editor.putInt("idName", 12);
         editor.commit();*/
 

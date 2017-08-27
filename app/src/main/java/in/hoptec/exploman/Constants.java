@@ -23,6 +23,55 @@ public class Constants {
     //@ GET mode=coor|search   lat,lng | query
     public static String API_GET_PLACES="/api/get_places.php";
 
+
+    //@ GET mode
+    /*
+    write : place_id , user_id
+
+   	$id=$GET["id"];
+ 	$place_id=$GET["place_id"];
+ 	$user_id=$GET["user_id"];
+ 	$rating=$GET["rating"];
+ 	$message=$GET["message"];
+ 	$date=$GET["date"];
+ 	$extra0=$GET["extra0"];
+
+ 	get_all :
+ 	place_id
+
+ 	del :
+ 	delid
+
+
+     */
+    public static String API_GET_PREVIEWS="/api/preview.php";
+
+
+
+    //@ GET mode
+    /*
+    write : guide_id , user_id
+
+   	$id=$GET["id"];
+ 	$place_id=$GET["guide_id"];
+ 	$user_id=$GET["user_id"];
+ 	$rating=$GET["rating"];
+ 	$message=$GET["message"];
+ 	$date=$GET["date"];
+ 	$extra0=$GET["extra0"];
+
+ 	get_all :
+ 	guide_id
+
+ 	del :
+ 	delid
+
+
+     */
+    public static String API_GET_GREVIEWS="/api/greview.php";
+
+
+
     public static boolean IS_ANIMATED_BG_SPLASH=false;
     public static boolean isPdCancelable=true;
 
