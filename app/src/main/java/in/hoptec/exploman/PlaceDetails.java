@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.hoptec.exploman.adapters.FlipAdapter;
 import in.hoptec.exploman.adapters.ReviewAdapter;
 import in.hoptec.exploman.database.Place;
 import in.hoptec.exploman.database.Review;
@@ -122,6 +125,7 @@ public class PlaceDetails extends AppCompatActivity {
 
         utl.changeColorDrawable(review,R.color.ic_accent1);
         utl.changeColorDrawable(bookmark,R.color.ic_accent1);
+        utl.changeColorDrawable(go,R.color.button_accent1);
 
 
 
@@ -259,98 +263,65 @@ public class PlaceDetails extends AppCompatActivity {
 
     Handler h;
     Runnable r;
-    int dr=0;
+    int trip=0;
     ArrayList<String> strip;
+    @BindView(R.id.flipper)
+    RecyclerView flipper;
+
     public void flip()
     {
 
 
+        FlipAdapter adapter=new FlipAdapter(ctx, strip, new FlipAdapter.CallBacks() {
+            @Override
+            public void share(String  cat, int id) {
 
-        if(strip.size()<=1)
-        {
+            }
 
-            Picasso.with(ctx).load(strip.get(dr)).placeholder(R.drawable.placeholder).into(flip);
-            return;
-        }
+            @Override
+            public void like(String cat, boolean like) {
 
-        h=new Handler();
+            }
+
+            @Override
+            public void click(String cat, int id, View v) {
+
+            }
+        });
+        flipper.setLayoutManager(new LinearLayoutManager(ctx));
+        flipper.setAdapter(adapter);
+
+
+
+    h=new Handler();
         r=new Runnable() {
             @Override
             public void run() {
 
-                utl.l("Streip size "+strip.size());
-
-
-                Picasso.with(ctx).load(strip.get(dr)).placeholder(R.drawable.placeholder).into(flip);
-                if(dr<strip.size()-1)
+                if(trip>=strip.size())
                 {
-                    dr++;
+                    trip=0;
                 }
-                else {
-                    dr=0;
-                }
-                // flip.setImageResource(d);
-                YoYo.with(Techniques.SlideInLeft).withListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                YoYo.with(Techniques.SlideOutRight).withListener(new Animator.AnimatorListener() {
-                                    @Override
-                                    public void onAnimationStart(Animator animator) {
-
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(Animator animator) {
-                                        h.postDelayed(r, 10);
-                                    }
-
-                                    @Override
-                                    public void onAnimationCancel(Animator animator) {
-
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animator animator) {
-
-                                    }
-                                }).duration(200).playOn(flip);
-
-                            }
-                        },5000);
-
-                        //   h.postDelayed(r,5000);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
-
-                    }
-                }).duration(200).playOn(flip);
+                flipper.getLayoutManager().smoothScrollToPosition(flipper,null,trip++);
+                // recyclerView.getLayoutManager().smoothScrollToPosition();
+                h.postDelayed(r,4000);
             }
         };
-
-
-        h.postDelayed(r, 100);
+        h.postDelayed(r,4000);
 
 
     }
 
 
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

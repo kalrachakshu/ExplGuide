@@ -16,6 +16,7 @@
     <dimen name="icon_width">50dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="flip_h">300dp</dimen>
 
 
     <dimen name="comment_avatar_size">56dp</dimen>

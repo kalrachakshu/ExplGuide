@@ -18,15 +18,14 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.hoptec.exploman.R;
-import in.hoptec.exploman.database.Review;
 import in.hoptec.exploman.utl;
 
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomViewHolder> {
-    public List<Review> feedItemList;
+public class FlipAdapter extends RecyclerView.Adapter<FlipAdapter.CustomViewHolder> {
+    public List<String > feedItemList;
     private Context ctx;
 
-    public ReviewAdapter(Context context, List<Review> feedItemList, CallBacks cab) {
+    public FlipAdapter(Context context, List<String > feedItemList, CallBacks cab) {
         this.feedItemList = feedItemList;
         this.ctx = context;
         this.cab=cab;
@@ -39,7 +38,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_comment,  null, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.flipper,  null, false);
       //  view.setLayoutParams(new RecyclerView.LayoutParams(width, RecyclerView.LayoutParams.WRAP_CONTENT));
 
         WindowManager windowManager = (WindowManager)ctx.getSystemService(Context.WINDOW_SERVICE);
@@ -75,7 +74,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     @Override
     public void onBindViewHolder(final CustomViewHolder cv, final int i) {
                //Setting text view title
-      final Review cat=feedItemList.get(i);
+      final String  cat=feedItemList.get(i);
         final int id=i;
         final Qant qn=new Qant();
 
@@ -86,16 +85,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
         Double dp=new Double(i);
         dp=dp%4;
 
-        final int col=colors[dp.intValue()];
-
-        cv.tvName.setText( (cat.userFname));
-        cv.tvComment.setText( (cat.message));
-        //cv.time.setText(cat.getCreatedAt());
 
         try {
-            utl.l(cat.userImage);
+            utl.l(cat);
 
-            Picasso.with(ctx).load(cat.userImage).placeholder(R.drawable.user).into(cv.ivUserAvatar);
+            Picasso.with(ctx).load(cat).placeholder(R.drawable.placeholder).into(cv.ivUserAvatar);
 
 //            cv.line.setBackgroundColor(ctx.getResources().getColor(col));
             count++;
@@ -131,11 +125,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     CallBacks cab;
     public static interface CallBacks{
 
-    public void share(Review cat, int id);
+    public void share(String  cat, int id);
 
-    public void like(Review cat, boolean like);
+    public void like(String  cat, boolean like);
 
-    public void click(Review cat, int id, View v);
+    public void click(String  cat, int id, View v);
     }
 
 public class CustomViewHolder extends RecyclerView.ViewHolder
@@ -154,7 +148,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder
         view=itemView.findViewById(R.id.container);
 
        // wb=(WebView) itemView.findViewById(R.id.web);
-        ivUserAvatar =(ImageView) itemView.findViewById(R.id.ivUserAvatar);
+        ivUserAvatar =(ImageView) itemView.findViewById(R.id.flip);
         tvName =(TextView) itemView.findViewById(R.id.tvName);
         tvComment =(TextView) itemView.findViewById(R.id.tvComment);
         rating=(AppCompatRatingBar) itemView.findViewById(R.id.rating);

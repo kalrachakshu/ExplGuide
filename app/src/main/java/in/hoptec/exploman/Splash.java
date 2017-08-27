@@ -526,6 +526,7 @@ private class StartNextRotate implements Animation.AnimationListener {
                 v=m_login;
             }
             startActivity(intent);
+            finish();
 
            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.
@@ -919,9 +920,6 @@ private class StartNextRotate implements Animation.AnimationListener {
                     else {
                         password.setError("Password donot match !");
                     }
-
-
-
 
                 }
             });

@@ -22,19 +22,26 @@
         android:id="@+id/flip_bg"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="200dp" >
+        android:layout_height="@dimen/flip_h" >
 
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/flipper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flip_h">
+
+        </android.support.v7.widget.RecyclerView>
         <ImageView
+            android:visibility="gone"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/flip_h"
             android:id="@+id/flip" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/flip_h"
             android:background="@drawable/grad"/>
 
 
@@ -80,15 +87,7 @@
 
 
 
-            <android.support.v7.widget.CardView
-                app:cardElevation="4dp"
-                app:cardCornerRadius="3dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
                 <LinearLayout
-                    android:background="@color/grey_200"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -100,7 +99,6 @@
 
                         android:layout_gravity="center"
                         android:weightSum="1"
-                        android:background="@color/grey_200"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="30dp">
@@ -173,30 +171,20 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
 
-                app:cardElevation="4dp"
-                app:cardCornerRadius="3dp"
-                android:layout_marginTop="4dp"
+
+
+            <View
+                android:layout_margin="7dp"
+                android:background="@color/grey_300"
+                android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                />
 
+            <LinearLayout
 
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-
-                app:cardElevation="4dp"
-                app:cardCornerRadius="3dp"
-                android:layout_marginTop="4dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <LinearLayout
-
-                    android:background="@color/grey_200"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/hold"
                     android:weightSum="0.6"
                     android:orientation="horizontal"
@@ -216,9 +204,8 @@
 
 
                     <ImageView
-                        android:background="@color/button_accent1"
                         android:id="@+id/go"
-                        android:src="@drawable/ic_next_week_white_48dp"
+                        android:src="@drawable/ic_navigate_next_black_36dp"
                         android:layout_weight="0.2"
                         android:padding="13dp"
                         android:scaleType="centerInside"
@@ -242,21 +229,10 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
 
 
 
 
-
-
-
-
-            <View
-                android:layout_margin="7dp"
-                android:background="@color/grey_600"
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                />
 
 
 
