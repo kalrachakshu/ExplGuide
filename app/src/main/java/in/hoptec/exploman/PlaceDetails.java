@@ -117,6 +117,11 @@ public class PlaceDetails extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        setTitle("");
+
+
+        utl.changeColorDrawable(review,R.color.ic_accent1);
+        utl.changeColorDrawable(bookmark,R.color.ic_accent1);
 
 
 

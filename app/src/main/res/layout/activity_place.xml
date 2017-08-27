@@ -216,7 +216,7 @@
 
 
                     <ImageView
-                        android:background="@color/green_300"
+                        android:background="@color/button_accent1"
                         android:id="@+id/go"
                         android:src="@drawable/ic_next_week_white_48dp"
                         android:layout_weight="0.2"
