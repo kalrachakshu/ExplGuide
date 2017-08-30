@@ -154,8 +154,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
 
+                <Button
+                    android:textColor="@color/pink"
+                    android:text="REVIEW"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:id="@+id/rev0"
+                    android:layout_weight="0.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
+                <Button
+                    android:transitionName="@string/activity_image_trans2"
+                    android:textColor="@color/white"
+                    android:text="VISIT"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:id="@+id/visit0"
+                    android:layout_weight="0.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:textColor="@color/pink"
+                    android:text="SAVE"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:id="@+id/save0"
+                    android:layout_weight="0.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/review"
                     android:src="@drawable/ic_rate_review_36pt_3x"
                     android:layout_weight="0.2"
@@ -167,6 +198,7 @@
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/go"
                     android:src="@drawable/ic_navigate_next_black_36dp"
                     android:layout_weight="0.2"
@@ -177,6 +209,7 @@
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/bookmark"
                     android:src="@drawable/ic_bookmark_black_48dp"
                     android:layout_weight="0.2"

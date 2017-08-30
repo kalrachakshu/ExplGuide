@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00acc1</color>
+    <color name="colorPrimary">#149dcc</color>
     <color name="colorPrimaryDark">#2962ff</color>
     <color name="colorAccent">#149dcc</color>
 
@@ -142,8 +142,6 @@
         <color name="colorbar">#727272</color>
 
 
-        <color name="app_primary">#008080</color>
-        <color name="app_primary_dark">#45645C</color>
 
         <item name="purple" type="color">#FFAA66CC</item>
         <item name="red" type="color">#FFFF4444</item>

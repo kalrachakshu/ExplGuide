@@ -2,10 +2,13 @@ package in.hoptec.exploman;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -50,6 +53,17 @@ import in.hoptec.exploman.utils.GenricCallback;
 import in.hoptec.exploman.views.GoalProgressBar;
 
 public class PlaceDetails extends AppCompatActivity {
+
+
+    @BindView(R.id.visit0)
+    Button visit0;
+
+    @BindView(R.id.rev0)
+    Button rev0;
+
+    @BindView(R.id.save0)
+    Button save0;
+
 
 
     ImageView flip;
@@ -112,6 +126,7 @@ public class PlaceDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        utl.fullScreen(this);
         setContentView(R.layout.activity_place);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -138,6 +153,9 @@ public class PlaceDetails extends AppCompatActivity {
         setTitle("");
 
 
+
+
+
         utl.changeColorDrawable(review,R.color.ic_accent1);
         utl.changeColorDrawable(bookmark,R.color.ic_accent1);
         utl.changeColorDrawable(go,R.color.button_accent1);
@@ -156,6 +174,61 @@ public class PlaceDetails extends AppCompatActivity {
                 write();
             }
         });
+
+        rev0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                write();
+            }
+        });
+
+        visit0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(act, v, getString(R.string.activity_image_trans));
+                startActivity(intent, options.toBundle());
+            }
+            else {
+                startActivity(intent);
+            }*/
+
+                //finish();
+
+
+
+                Intent intent=new Intent(ctx,Guides.class);
+                intent.putExtra("cat",utl.js.toJson(place));
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(act, view, getString(R.string.activity_image_trans2));
+                    startActivity(intent, options.toBundle());
+                }
+                else {
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        save0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save();
+            }
+        });
+
+    }
+
+    public void save()
+    {
+
+
+
 
     }
     BottomSheetDialog mBottomSheetDialog;

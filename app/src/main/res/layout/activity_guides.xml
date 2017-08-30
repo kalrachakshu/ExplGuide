@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_guides"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context="in.hoptec.exploman.Guides">
+
+
+    <RelativeLayout
+        android:background="@color/colorAccent"
+        android:transitionName="@string/activity_image_trans2"
+        android:id="@+id/flip_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+
+        <ImageView
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flip_h"
+            android:id="@+id/flip" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flip_h"
+            android:background="@drawable/grad"/>
+
+
+
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            app:font="Rubik-Regular"
+            android:layout_above="@+id/sub"
+            android:layout_marginLeft="10dp"
+            android:gravity="left"
+            android:text="Guides"
+            android:id="@+id/title"
+            android:textIsSelectable="true"
+            android:textColor="@color/white"
+            android:textSize="27sp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/sub"
+
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="left"
+            android:weightSum="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:layout_marginLeft="8dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:id="@+id/address"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:text="Jebel Sams"
+                android:textColor="@color/grey_300"
+                app:font="Rubik-Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.Toolbar>
+
+<RelativeLayout
+    android:gravity="center"
+    android:layout_below="@+id/flip_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/splash_view2"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView"
+        android:visibility="visible"
+        app:indicatorName="LineScalePartyIndicator"
+        app:indicatorColor="@color/red_700"
+        />
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
+
+
+
+</RelativeLayout>

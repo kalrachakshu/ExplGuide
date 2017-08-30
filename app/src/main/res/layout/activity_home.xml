@@ -32,7 +32,7 @@
             app:font="ClanPro-Book"
             android:padding="10dp"
             android:id="@+id/toolbar_title"
-            android:textColor="@color/white"
+            android:textColor="@color/grey_600"
             android:layout_gravity="center"
             android:gravity="center"
 
@@ -54,7 +54,7 @@
         android:background="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:padding="5dp"
@@ -90,7 +90,7 @@
             android:layout_weight="0.2"
             android:id="@+id/go"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="60dp" />
 
 
 

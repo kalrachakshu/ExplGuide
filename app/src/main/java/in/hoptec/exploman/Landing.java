@@ -116,6 +116,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setTitle("");
 
         city = (TextView) findViewById(R.id.toolbar_title);
