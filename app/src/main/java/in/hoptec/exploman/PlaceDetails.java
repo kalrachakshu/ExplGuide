@@ -2,9 +2,13 @@ package in.hoptec.exploman;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -14,8 +18,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -31,6 +37,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -98,6 +105,7 @@ public class PlaceDetails extends AppCompatActivity {
     public Context ctx;
     public Activity act;
 
+    GenricUser user;
     Place place;
 
     @Override
@@ -109,6 +117,7 @@ public class PlaceDetails extends AppCompatActivity {
 
         ctx=this;
         act=this;
+        user=utl.readUserData();
 
         flip=(ImageView)findViewById(R.id.flip);
 
@@ -120,6 +129,7 @@ public class PlaceDetails extends AppCompatActivity {
         {
             fill(place);
         }
+
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -147,8 +157,129 @@ public class PlaceDetails extends AppCompatActivity {
         });
 
     }
+
+    Integer [] images={R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,R.drawable.five};
+    Integer [] _images={R.drawable._one,R.drawable._two,R.drawable._three,R.drawable._four,R.drawable._five};
+    Drawable  [] _img;
+    Drawable  [] img;
+    Float ratingf=5f;
     public void write()
-    {}
+    {
+
+
+
+
+        _img=new Drawable[5];
+        img=new Drawable[5];
+
+        for (int i=0;i<5;i++)
+            img[i]=getResources().getDrawable(images[i]);
+
+        for (int i=0;i<5;i++)
+            _img[i]=getResources().getDrawable(images[i]);
+
+        for (int i=0;i<5;i++)
+            DrawableCompat.setTint(_img[i], ContextCompat.getColor(ctx, R.color.grey_400));
+
+
+
+        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(act);
+        View sheetView = act.getLayoutInflater().inflate(R.layout.write_rev, null);
+
+        final EditText
+                text=(EditText)sheetView.findViewById(R.id.text);
+        Button done=(Button)sheetView.findViewById(R.id.done);
+
+        final LinearLayout rating_holder=(LinearLayout)sheetView.findViewById(R.id.rating_holder);
+
+
+        for(int i=0;i<rating_holder.getChildCount();i++)
+        {
+            final  Integer pos=i;
+            final ImageView view=(ImageView)rating_holder.getChildAt(i);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view22) {
+
+                    ratingf=pos.floatValue()+1f;
+                    utl.l("Rtinf "+ratingf);
+
+                    for(int i=0;i<rating_holder.getChildCount();i++)
+                    {
+
+                        final int pp=i;
+                        final ImageView view2=(ImageView)rating_holder.getChildAt(pp);
+
+                        view2.setImageDrawable(_img[pp]);
+                       // view2.setImageResource(_images[pos]);
+                    }
+                    view.setImageDrawable(img[pos]);
+                //  view.setImageResource(images[pos]);
+
+
+                }
+            });
+
+
+        }
+        for(int i=0;i<rating_holder.getChildCount();i++)
+        {
+
+                final ImageView view2 = (ImageView) rating_holder.getChildAt(i);
+                utl.changeColorDrawable(view2, R.color.grey_400);
+
+
+        }
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if((text.getText().toString()).length()<1)
+                {
+                    text.setError("Must not be empty !");
+                }
+
+                /*
+
+ 	$place_id=$GET["place_id"];
+ 	$user_id=$GET["user_id"];
+ 	$rating=$GET["rating"];
+ 	$message=$GET["message"];
+ 	$date=$GET["date"];
+ 	$extra0=$GET["extra0"];
+                 */
+                String url=Constants.HOST+Constants.API_GET_PREVIEWS+"?";
+                url+="place_id="+place.id;
+                url+="&user_id="+user.uid;
+                url+="&rating="+ratingf;
+                url+="&message="+ URLEncoder.encode(text.getText().toString());
+                url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
+
+                utl.l(url);
+
+
+
+
+
+            }
+        });
+
+
+
+
+
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.show();
+
+
+
+
+
+
+
+    }
    final int LOADING=12,EMPTY=13,LOADED=14;
 
 
