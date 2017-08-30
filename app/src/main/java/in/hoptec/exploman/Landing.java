@@ -104,6 +104,8 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         act = this;
 
 
+        utl.fullScreen(act);
+
         setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 

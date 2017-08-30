@@ -24,6 +24,8 @@ public class Constants {
     //@ GET mode=coor|search   lat,lng | query
     public static String API_GET_PLACES="/api/get_places.php";
 
+    //@ GET mode=coor|search   lat,lng | query
+    public static String API_GET_GUIDES="/api/get_guides.php";
 
     //@ GET mode
     /*

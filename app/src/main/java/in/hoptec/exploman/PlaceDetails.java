@@ -229,6 +229,8 @@ public class PlaceDetails extends AppCompatActivity {
 
 
 
+        utl.snack(act,place.name+" added to Favorites !");
+
 
     }
     BottomSheetDialog mBottomSheetDialog;

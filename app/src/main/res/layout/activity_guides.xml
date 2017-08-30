@@ -95,27 +95,76 @@
     android:layout_height="match_parent">
 
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:layout_marginTop="30dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/splash_view2"
+
+    <LinearLayout
+
+        android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/AVLoadingIndicatorView"
-        android:visibility="visible"
-        app:indicatorName="LineScalePartyIndicator"
-        app:indicatorColor="@color/red_700"
-        />
-
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/flipper"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+
+            android:layout_marginTop="30dp"
+            android:id="@+id/splash_view2"
+            android:layout_gravity="center"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AVLoadingIndicatorView"
+            android:visibility="visible"
+            app:indicatorName="LineScalePartyIndicator"
+            app:indicatorColor="@color/red_700"
+            />
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/review_plc"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/write_rev"
+                android:src="@drawable/ic_face_black_48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+                app:font="ClanPro-Book"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/grey_500"
+                android:text="No Guides Available !"
+                android:textSize="14sp"
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rec"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
 </RelativeLayout>
 
 

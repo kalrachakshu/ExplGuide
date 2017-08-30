@@ -4,8 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,6 +25,17 @@ public class Guides extends AppCompatActivity {
 
     public Context ctx;
     public Activity act;
+    @BindView(R.id.write_rev)
+    ImageView write_rev;
+
+    @BindView(R.id.splash_view2)
+    AVLoadingIndicatorView loading;
+    @BindView(R.id.rec)
+    RecyclerView rec;
+
+    @BindView(R.id.review_plc)
+    LinearLayout review_plc;
+
 
     @BindView(R.id.title)
     TextView title;
@@ -40,7 +61,7 @@ public class Guides extends AppCompatActivity {
 
 
         ButterKnife.bind(this);
-        place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
+        place=utl.js.fromJson(getIntent().getStringExtra("cat"),Place.class);
 
         if(place!=null)
         {
@@ -52,6 +73,21 @@ public class Guides extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         setTitle("");
+
+        load(LOADING);
+        String url=Constants.HOST+Constants.API_GET_GUIDES+"?place_id="+place.id;
+        AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+            @Override
+            public void onResponse(String response) {
+                load(EMPTY);
+            }
+
+            @Override
+            public void onError(ANError ANError) {
+                load(EMPTY);
+
+            }
+        });
 
     }
 
@@ -67,6 +103,57 @@ public class Guides extends AppCompatActivity {
     }
 
 
+    final int LOADING=12,EMPTY=13,LOADED=14;
 
+    public void load(int state)
+    {
+
+        if(state==LOADING)
+        {
+            loading.setVisibility(View.VISIBLE);
+            rec.setVisibility(View.GONE);
+            review_plc.setVisibility(View.GONE);
+        }
+
+
+        if(state==EMPTY)
+        {
+            loading.setVisibility(View.GONE);
+            rec.setVisibility(View.GONE);
+            review_plc.setVisibility(View.VISIBLE);
+            review_plc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                }
+            });
+            utl.changeColorDrawable(write_rev,R.color.grey_500);
+
+
+        }
+
+
+        if(state==LOADED)
+        {
+            loading.setVisibility(View.GONE);
+            rec.setVisibility(View.VISIBLE);
+            review_plc.setVisibility(View.GONE);
+        }
+
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
