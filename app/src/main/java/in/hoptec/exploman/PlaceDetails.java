@@ -157,10 +157,9 @@ public class PlaceDetails extends AppCompatActivity {
         });
 
     }
-
+    BottomSheetDialog mBottomSheetDialog;
     Integer [] images={R.drawable.one,R.drawable.two,R.drawable.three,R.drawable.four,R.drawable.five};
-    Integer [] _images={R.drawable._one,R.drawable._two,R.drawable._three,R.drawable._four,R.drawable._five};
-    Drawable  [] _img;
+     Drawable  [] _img;
     Drawable  [] img;
     Float ratingf=5f;
     public void write()
@@ -183,7 +182,7 @@ public class PlaceDetails extends AppCompatActivity {
 
 
 
-        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(act);
+         mBottomSheetDialog = new BottomSheetDialog(act);
         View sheetView = act.getLayoutInflater().inflate(R.layout.write_rev, null);
 
         final EditText
@@ -239,6 +238,31 @@ public class PlaceDetails extends AppCompatActivity {
                 if((text.getText().toString()).length()<1)
                 {
                     text.setError("Must not be empty !");
+
+                }else {
+                    mBottomSheetDialog.dismiss();
+                    String url=Constants.HOST+Constants.API_GET_PREVIEWS+"?";
+                    url+="place_id="+place.id;
+                    url+="&user_id="+user.uid;
+                    url+="&rating="+ratingf;
+                    url+="&message="+ URLEncoder.encode(text.getText().toString());
+                    url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
+
+                    utl.l(url);
+                    AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+                        @Override
+                        public void onResponse(String response) {
+                            utl.snack(act,response);
+                            getReviews(place.id);
+                        }
+
+                        @Override
+                        public void onError(ANError ANError) {
+
+                            utl.snack(act,"Error Occured");
+                        }
+                    });
+
                 }
 
                 /*
@@ -250,14 +274,6 @@ public class PlaceDetails extends AppCompatActivity {
  	$date=$GET["date"];
  	$extra0=$GET["extra0"];
                  */
-                String url=Constants.HOST+Constants.API_GET_PREVIEWS+"?";
-                url+="place_id="+place.id;
-                url+="&user_id="+user.uid;
-                url+="&rating="+ratingf;
-                url+="&message="+ URLEncoder.encode(text.getText().toString());
-                url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
-
-                utl.l(url);
 
 
 

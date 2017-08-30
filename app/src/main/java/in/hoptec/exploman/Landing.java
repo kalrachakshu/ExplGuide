@@ -784,7 +784,9 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
      public void setUpDrawer(Bundle savedInstanceState)
     {
-        final IProfile profile = new ProfileDrawerItem().withName(""+user.user_fname).withEmail(""+user.user_email).withIcon(user.user_image).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx));
+        final IProfile profile = new ProfileDrawerItem().withName(""+user.user_fname)
+                .withEmail(""+user.user_email).withIcon(user.user_image)
+                .withTypeface(utl.getFace(utl.RUBIK,ctx));
 
 
         // Create the AccountHeader
@@ -797,11 +799,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        final PrimaryDrawerItem home=new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                tours=new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                wallet=new PrimaryDrawerItem().withName("Wallet").withIcon(FontAwesome.Icon.faw_google_wallet).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                help=new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
-                logout=new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_delete).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx));
+        final PrimaryDrawerItem home=new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.RUBIK,ctx)),
+                tours=new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.RUBIK,ctx)),
+                wallet=new PrimaryDrawerItem().withName("Wallet").withIcon(FontAwesome.Icon.faw_google_wallet).withTypeface(utl.getFace(utl.RUBIK,ctx)),
+                help=new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.RUBIK,ctx)),
+                logout=new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_delete).withTypeface(utl.getFace(utl.RUBIK,ctx));
 
         //Create the drawer
         result = new DrawerBuilder()
@@ -823,6 +825,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                         if(drawerItem==logout)
                         {
                             utl.logout();
+                            startActivity(new Intent(ctx,Splash.class));
                             finish();
                             return false;
                         }

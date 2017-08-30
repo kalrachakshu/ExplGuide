@@ -62,6 +62,7 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
+import in.hoptec.exploman.database.Ouser;
 import in.hoptec.exploman.utils.Bouncer;
 import in.hoptec.exploman.utils.Rotate3dAnimation;
 import in.hoptec.exploman.views.SplashView;
@@ -503,7 +504,6 @@ private class StartNextRotate implements Animation.AnimationListener {
             {
                 user.user_phone=phone;
             }
-            register(user);
 
             if(diag!=null)
                 if(diag.isShowing())
@@ -525,8 +525,7 @@ private class StartNextRotate implements Animation.AnimationListener {
             {
                 v=m_login;
             }
-            startActivity(intent);
-            finish();
+
 
            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.
@@ -539,6 +538,7 @@ private class StartNextRotate implements Animation.AnimationListener {
 
             //finish();
 
+            register(user);
 
 
 
@@ -814,6 +814,13 @@ private class StartNextRotate implements Animation.AnimationListener {
                     public void onResponse(String response) {
                         response=""+response;
                         utl.l("reg resp "+response);
+                        Ouser oUser;
+                        oUser=js.fromJson(response, Ouser.class);
+                        utl.writeUserData(new GenricUser(oUser),ctx);
+
+
+
+
                         if(response.contains("error"))
                         {
 
@@ -824,6 +831,9 @@ private class StartNextRotate implements Animation.AnimationListener {
 
                            // startlogin(tmpusr.user_email,tmpusr.suid,1);
                         }
+                        Intent intent=new Intent(ctx,Landing.class);
+                        startActivity(intent);
+                        finish();
 
                     }
 
@@ -831,6 +841,12 @@ private class StartNextRotate implements Animation.AnimationListener {
                     public void onError(ANError ANError) {
 
                         utl.e("err 566"+ANError.getErrorBody());
+                        if(utl.readUserData()!=null)
+                        {
+                            Intent intent=new Intent(ctx,Landing.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 });
 

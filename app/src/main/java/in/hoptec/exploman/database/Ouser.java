@@ -3,6 +3,9 @@ package in.hoptec.exploman.database;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import in.hoptec.exploman.GenricUser;
+import in.hoptec.exploman.utl;
+
 /**
  * Created by shivesh on 30/8/17.
  */
@@ -46,6 +49,8 @@ public class Ouser {
     @SerializedName("uid")
     @Expose
     public String uid;
+
+
 
 
 }

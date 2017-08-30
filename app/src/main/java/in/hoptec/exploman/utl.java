@@ -184,7 +184,10 @@ public class utl {
     }
 
 
-    public static String CLAN_PRO_NORMAL="ClanPro-Book.otf",AVENIR_MED="Avenir-Medium.ttf", CAVIAR="CaviarDreams.ttf",ROBOTO_THIN="Roboto-Thin.ttf";
+    public static String CLAN_PRO_NORMAL="ClanPro-Book.otf",
+            RUBIK="Rubik-Regular.ttf"
+            ,AVENIR_MED="Avenir-Medium.ttf"
+            , CAVIAR="CaviarDreams.ttf",ROBOTO_THIN="Roboto-Thin.ttf";
 
 
     public static Typeface getFace(String font,Context ctx)

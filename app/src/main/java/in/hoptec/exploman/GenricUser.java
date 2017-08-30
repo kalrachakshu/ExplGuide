@@ -2,6 +2,8 @@ package in.hoptec.exploman;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import in.hoptec.exploman.database.Ouser;
+
 /**
  * Created by shivesh on 29/6/17.
  */
@@ -41,6 +43,28 @@ public class GenricUser {
         }
 
     }
+
+
+    public GenricUser(Ouser user)
+    {
+
+        user_name= utl.refineString(""+user.userName,"");
+        user_fname=""+user.userFname;
+        user_password=""+user.auth;
+        uid=""+user.uid;
+        suid=""+user.suid;
+        auth=""+user.auth;
+        user_email=""+user.userEmail;
+        user_phone=""+user.extra0;
+        try {
+            user_image=""+user.userImage;
+        } catch (Exception e) {
+            utl.l("NO USER IMAGE at GenricUser(FireBaseUser)");
+        }
+
+
+    }
+
 
     public GenricUser()
     {
