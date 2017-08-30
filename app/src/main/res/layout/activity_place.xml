@@ -47,19 +47,78 @@
 
 
         <com.daniribalbert.customfontlib.views.CustomFontTextView
-            app:font="avenir-next-regular"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
+            app:font="Rubik-Regular"
+            android:layout_above="@+id/sub"
             android:layout_marginLeft="5dp"
             android:gravity="left"
             android:text="Choose Login"
             android:id="@+id/title"
             android:textIsSelectable="true"
             android:textColor="@color/white"
-            android:textSize="23sp"
+            android:textSize="27sp"
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:id="@+id/sub"
+
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="left"
+            android:weightSum="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" >
+                <android.support.v7.widget.AppCompatRatingBar
+
+                    android:max="5"
+                    android:stepSize="1"
+                    android:id="@+id/rating"
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <in.hoptec.exploman.views.RoundedImageView
+                android:padding="5dp"
+                android:visibility="gone"
+                android:scaleType="fitXY"
+                android:src="@drawable/user"
+                android:id="@+id/opt"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:layout_marginLeft="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:id="@+id/address"
+                android:gravity="center_vertical"
+                android:textSize="15sp"
+                android:text="Hi ! this is me"
+                android:textColor="@color/grey_300"
+                app:font="Rubik-Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp" />
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -85,9 +144,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+
+                android:layout_marginTop="5dp"
+                android:id="@+id/hold"
+                android:weightSum="0.6"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
 
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/review"
+                    android:src="@drawable/ic_rate_review_36pt_3x"
+                    android:layout_weight="0.2"
+                    android:padding="19dp"
+                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
+
+                <ImageView
+                    android:id="@+id/go"
+                    android:src="@drawable/ic_navigate_next_black_36dp"
+                    android:layout_weight="0.2"
+                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
+
+                <ImageView
+                    android:id="@+id/bookmark"
+                    android:src="@drawable/ic_bookmark_black_48dp"
+                    android:layout_weight="0.2"
+                    android:padding="19dp"
+                    android:scaleType="centerInside"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -95,63 +201,10 @@
 
 
 
-                    <LinearLayout
-
-                        android:layout_gravity="center"
-                        android:weightSum="1"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp">
-
-
-                        <in.hoptec.exploman.views.RoundedImageView
-                            android:padding="5dp"
-                            android:visibility="gone"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/user"
-                            android:id="@+id/opt"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
-                        <com.daniribalbert.customfontlib.views.CustomFontTextView
-
-                            android:layout_gravity="center"
-                            android:layout_weight="0.5"
-                            android:layout_marginLeft="10dp"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:id="@+id/address"
-                            android:gravity="center_vertical"
-                            android:textSize="15sp"
-                            android:text="Hi ! this is me"
-                            android:textColor="@color/grey_800"
-                            app:font="Roboto-Thin"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" />
-
-
-                        <LinearLayout
-                            android:layout_gravity="center"
-                            android:layout_weight="0.5"
-                            android:paddingRight="10dp"
-                            android:gravity="center"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent" >
-                        <android.support.v7.widget.AppCompatRatingBar
-
-                            android:max="5"
-                            android:stepSize="1"
-                             android:id="@+id/rating"
-                            style="@style/RatingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
 
 
                     <com.daniribalbert.customfontlib.views.CustomFontTextView
-                        app:font="Avenir-Medium"
+                        app:font="Rubik-Regular"
                         android:textIsSelectable="true"
                         android:textColor="@color/grey_900"
                         android:layout_gravity="center"
@@ -181,53 +234,6 @@
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
                 />
-
-            <LinearLayout
-
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/hold"
-                    android:weightSum="0.6"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-
-                    <ImageView
-                        android:id="@+id/review"
-                        android:src="@drawable/ic_rate_review_36pt_3x"
-                        android:layout_weight="0.2"
-                        android:padding="18dp"
-                        android:scaleType="centerInside"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-
-
-
-                    <ImageView
-                        android:id="@+id/go"
-                        android:src="@drawable/ic_navigate_next_black_36dp"
-                        android:layout_weight="0.2"
-                        android:padding="13dp"
-                        android:scaleType="centerInside"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-
-
-
-                    <ImageView
-                        android:id="@+id/bookmark"
-                        android:src="@drawable/ic_bookmark_black_48dp"
-                        android:layout_weight="0.2"
-                        android:padding="16dp"
-                        android:scaleType="centerInside"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
-
-
-
-
-
-                </LinearLayout>
 
 
 
@@ -317,6 +323,14 @@
 
 
                 </android.support.v7.widget.RecyclerView>
+
+
+                <Button
+                    android:id="@+id/write_rev2"
+                    android:text="WRITE REVIEW"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

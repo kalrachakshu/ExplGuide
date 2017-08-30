@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,6 +49,9 @@ public class PlaceDetails extends AppCompatActivity {
 
     @BindView(R.id.write_rev)
     ImageView write_rev;
+
+    @BindView(R.id.write_rev2)
+    Button write_rev2;
 
     @BindView(R.id.review_plc)
     LinearLayout review_plc;
@@ -128,6 +132,19 @@ public class PlaceDetails extends AppCompatActivity {
         utl.changeColorDrawable(go,R.color.button_accent1);
 
 
+        write_rev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                write();
+            }
+        });
+
+        write_rev2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                write();
+            }
+        });
 
     }
     public void write()
@@ -292,6 +309,8 @@ public class PlaceDetails extends AppCompatActivity {
         flipper.setAdapter(adapter);
 
 
+        if(adapter.feedItemList.size()<2)
+            return;
 
     h=new Handler();
         r=new Runnable() {

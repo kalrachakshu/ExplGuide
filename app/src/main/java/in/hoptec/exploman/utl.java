@@ -384,6 +384,7 @@ public class utl {
     public static int getApkVerison(Context ctx)
     {
         try{
+            int x;
             int versionCode = BuildConfig.VERSION_CODE;
             String versionName = BuildConfig.VERSION_NAME;
             return versionCode;
@@ -399,7 +400,7 @@ public class utl {
     public static void changeColorDrawable(ImageView imageView, @ColorRes int res) {
 
         try {
-            DrawableCompat.setTint(imageView.getDrawable(), ContextCompat.getColor(ctx, res));
+            DrawableCompat.setTint(imageView.getDrawable(), ContextCompat.getColor(imageView.getContext(), res));
         } catch (Exception e) {
             e.printStackTrace();
         }
