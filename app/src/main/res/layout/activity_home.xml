@@ -76,7 +76,6 @@
             android:layout_height="wrap_content" />
 
         <android.support.v7.widget.AppCompatRatingBar
-            android:background="@color/colorAccent"
             android:rating="4"
             android:id="@+id/rate"
             style="@style/Widget.AppCompat.RatingBar.Small"

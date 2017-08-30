@@ -104,8 +104,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         act = this;
 
 
-        utl.fullScreen(act);
-
+        utl.fullScreen(this);
         setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -118,7 +117,6 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         getSupportActionBar().setTitle("");
 
         city = (TextView) findViewById(R.id.toolbar_title);
@@ -131,7 +129,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-     @Override
+    @Override
     protected void onPause() {
 
         super.onPause();
@@ -194,7 +192,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
 
         if (plc == null) {
-           // lt.setVisibility(View.GONE);
+            // lt.setVisibility(View.GONE);
             name.setText("Special Packages");
             rate.setVisibility(View.INVISIBLE);
 
@@ -210,22 +208,23 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         }
 
 
-            utl.l("showing place :" + utl.js.toJson(plc));
-            lt.setVisibility(View.VISIBLE);
+        utl.l("showing place :" + utl.js.toJson(plc));
+        lt.setVisibility(View.VISIBLE);
 
-            rate.setRating(plc.rating.floatValue());
-            rate.setRating(4.5f);
-            name.setText(plc.name);
+        rate.setVisibility(View.VISIBLE);
+        rate.setRating(plc.rating.floatValue());
+        rate.setRating(4.5f);
+        name.setText(plc.name);
 
-            utl.changeColorDrawable(go, R.color.blue_600);
+        utl.changeColorDrawable(go, R.color.blue_600);
 
-            lt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        lt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    export(plc);
-                }
-            });
+                export(plc);
+            }
+        });
 
 
     }
@@ -436,7 +435,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-             //    ActivityCompat#requestPermissions
+            //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
@@ -453,34 +452,34 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-    mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-        @Override
-        public void onMapLongClick(LatLng latLng) {
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
 
 
-            mMap.addMarker(getMarker(latLng.latitude,latLng.longitude,"Here"));
-            Location lo=new Location(loc);
-            loc.setLatitude(latLng.latitude);
-            loc.setLongitude(latLng.longitude);
-            getNearby(lo);
+                mMap.addMarker(getMarker(latLng.latitude,latLng.longitude,"Here"));
+                Location lo=new Location(loc);
+                loc.setLatitude(latLng.latitude);
+                loc.setLongitude(latLng.longitude);
+                getNearby(lo);
 
 
-        }
-    });
+            }
+        });
 
-    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-        @Override
-        public boolean onMarkerClick(Marker marker) {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
 
-            marker.showInfoWindow();
-            clicked=marker;
-           // utl.l("Cliecked marker "+marker.getPosition().toString()+"\n"+marker.getTitle());
+                marker.showInfoWindow();
+                clicked=marker;
+                // utl.l("Cliecked marker "+marker.getPosition().toString()+"\n"+marker.getTitle());
 
-            showBottomBar(getPlaceByMarker(marker));
+                showBottomBar(getPlaceByMarker(marker));
 
-            return false;
-        }
-    });
+                return false;
+            }
+        });
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -503,7 +502,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         // Add a marker in Sydney and move the camera
-         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             // Use default InfoWindow frame
             @Override
@@ -539,22 +538,22 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                         try {
 
 
-                              Picasso.with(ctx).load(place.getImages().get(0)).into(im, new Callback() {
-                                  @Override
-                                  public void onSuccess() {
-                                      utl.l("picsaseo loded");
-                                      if (marker != null && marker.isInfoWindowShown()) {
-                                          marker.hideInfoWindow();
-                                          marker.showInfoWindow();
-                                      }
-                                  }
+                            Picasso.with(ctx).load(place.getImages().get(0)).into(im, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    utl.l("picsaseo loded");
+                                    if (marker != null && marker.isInfoWindowShown()) {
+                                        marker.hideInfoWindow();
+                                        marker.showInfoWindow();
+                                    }
+                                }
 
-                                  @Override
-                                  public void onError() {
-                                      utl.l("picsaseo err");
+                                @Override
+                                public void onError() {
+                                    utl.l("picsaseo err");
 
-                                  }
-                              });
+                                }
+                            });
 
                             place.marked=true;
                         } catch (Exception e) {
@@ -573,7 +572,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 }
 
 
-                    return v;
+                return v;
 
             }
 
@@ -707,56 +706,54 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
- /************************ DRAWER **************************/
+    /************************ DRAWER **************************/
 
- @Override
- protected void onSaveInstanceState(Bundle outState) {
-     //add the values which need to be saved from the drawer to the bundle
-     outState = result.saveInstanceState(outState);
-     //add the values which need to be saved from the accountHeader to the bundle
-     outState = headerResult.saveInstanceState(outState);
-     super.onSaveInstanceState(outState);
- }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
+        outState = result.saveInstanceState(outState);
+        //add the values which need to be saved from the accountHeader to the bundle
+        outState = headerResult.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public void onBackPressed() {
-
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (result != null && result.isDrawerOpen()) {
             result.closeDrawer();
         } else {
             super.onBackPressed();
         }
-
     }
- @Override
- public boolean onCreateOptionsMenu(Menu menu) {
-     MenuInflater inflater = getMenuInflater();
-     inflater.inflate(R.menu.menu_search, menu);
-     SearchView searchView =
-             (SearchView) menu.findItem(R.id.menu_search).getActionView();
-     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-         @Override
-         public boolean onQueryTextSubmit(String query) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-            // utl.snack(act,""+query);
+                // utl.snack(act,""+query);
 
-             search(query);
+                search(query);
 
-             return false;
-         }
+                return false;
+            }
 
-         @Override
-         public boolean onQueryTextChange(String newText) {
-             return false;
-         }
-     });
-
-
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
 
-     return true;
- }
+
+
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -787,11 +784,9 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
-     public void setUpDrawer(Bundle savedInstanceState)
+    public void setUpDrawer(Bundle savedInstanceState)
     {
-        final IProfile profile = new ProfileDrawerItem().withName(""+user.user_fname)
-                .withEmail(""+user.user_email).withIcon(user.user_image)
-                .withTypeface(utl.getFace(utl.RUBIK,ctx));
+        final IProfile profile = new ProfileDrawerItem().withName(""+user.user_fname).withEmail(""+user.user_email).withIcon(user.user_image).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx));
 
 
         // Create the AccountHeader
@@ -804,11 +799,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        final PrimaryDrawerItem home=new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.RUBIK,ctx)),
-                tours=new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.RUBIK,ctx)),
-                wallet=new PrimaryDrawerItem().withName("Wallet").withIcon(FontAwesome.Icon.faw_google_wallet).withTypeface(utl.getFace(utl.RUBIK,ctx)),
-                help=new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.RUBIK,ctx)),
-                logout=new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_delete).withTypeface(utl.getFace(utl.RUBIK,ctx));
+        final PrimaryDrawerItem home=new PrimaryDrawerItem().withName("Home").withIcon(GoogleMaterial.Icon.gmd_home).withIdentifier(1).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                tours=new PrimaryDrawerItem().withName("My Tours").withIcon(FontAwesome.Icon.faw_map_marker).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                wallet=new PrimaryDrawerItem().withName("Wallet").withIcon(FontAwesome.Icon.faw_google_wallet).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                help=new PrimaryDrawerItem().withName("Help & Support").withIcon(GoogleMaterial.Icon.gmd_help).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx)),
+                logout=new PrimaryDrawerItem().withName("Logout").withIcon(GoogleMaterial.Icon.gmd_delete).withTypeface(utl.getFace(utl.CLAN_PRO_NORMAL,ctx));
 
         //Create the drawer
         result = new DrawerBuilder()
@@ -823,14 +818,13 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
                         home,tours,wallet, new SectionDrawerItem() ,help,logout
 
-                        )
+                )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if(drawerItem==logout)
                         {
                             utl.logout();
-                            startActivity(new Intent(ctx,Splash.class));
                             finish();
                             return false;
                         }
@@ -845,7 +839,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
 
-/*
+
         //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
         //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
         crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
@@ -881,11 +875,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
-        *//**
+        /**
          * NOTE THIS IS A HIGHLY CUSTOM ANIMATION. USE CAREFULLY.
          * this animate the height of the profile to the height of the AccountHeader and
          * animates the height of the drawerItems to the normal drawerItems so the difference between Mini and normal Drawer is eliminated
-         **//*
+         **/
 
         final double headerHeight = DrawerUIUtils.getOptimalDrawerWidth(this) * 9d / 16d;
         final double originalProfileHeight = UIUtils.convertDpToPixel(72, this);
@@ -908,7 +902,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 miniResult.getAdapter().notifyDataSetChanged();
             }
-        });*/
+        });
 
     }
 }
