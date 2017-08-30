@@ -46,6 +46,7 @@ import in.hoptec.exploman.adapters.FlipAdapter;
 import in.hoptec.exploman.adapters.ReviewAdapter;
 import in.hoptec.exploman.database.Place;
 import in.hoptec.exploman.database.Review;
+import in.hoptec.exploman.utils.GenricCallback;
 import in.hoptec.exploman.views.GoalProgressBar;
 
 public class PlaceDetails extends AppCompatActivity {
@@ -211,6 +212,7 @@ public class PlaceDetails extends AppCompatActivity {
                         final ImageView view2=(ImageView)rating_holder.getChildAt(pp);
 
                         view2.setImageDrawable(_img[pp]);
+
                        // view2.setImageResource(_images[pos]);
                     }
                     view.setImageDrawable(img[pos]);
@@ -390,8 +392,43 @@ public class PlaceDetails extends AppCompatActivity {
             }
 
             @Override
-            public void like(Review cat, boolean like) {
+            public void like(final Review cat, boolean like) {
 
+                utl.snack(findViewById(R.id.activity_place), "Delete this comment ? ", "DELETE", new GenricCallback() {
+                    @Override
+                    public void onStart() {
+
+                        String url=Constants.HOST+Constants.API_GET_PREVIEWS+"?delid="+cat.id;
+                        utl.l(url);
+                        AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+                            @Override
+                            public void onResponse(String response) {
+                                utl.snack(act,"Deleted !");
+                                getReviews(place.id);
+                            }
+
+                            @Override
+                            public void onError(ANError ANError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onDo(Object obj) {
+
+                    }
+
+                    @Override
+                    public void onDo(Object obj, Object obj2) {
+
+                    }
+
+                    @Override
+                    public void onDone(Object obj) {
+
+                    }
+                });
             }
 
             @Override

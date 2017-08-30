@@ -717,12 +717,14 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public void onBackPressed() {
+
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (result != null && result.isDrawerOpen()) {
             result.closeDrawer();
         } else {
             super.onBackPressed();
         }
+
     }
  @Override
  public boolean onCreateOptionsMenu(Menu menu) {
@@ -840,7 +842,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
 
-
+/*
         //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
         //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
         crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
@@ -876,11 +878,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         });
 
 
-        /**
+        *//**
          * NOTE THIS IS A HIGHLY CUSTOM ANIMATION. USE CAREFULLY.
          * this animate the height of the profile to the height of the AccountHeader and
          * animates the height of the drawerItems to the normal drawerItems so the difference between Mini and normal Drawer is eliminated
-         **/
+         **//*
 
         final double headerHeight = DrawerUIUtils.getOptimalDrawerWidth(this) * 9d / 16d;
         final double originalProfileHeight = UIUtils.convertDpToPixel(72, this);
@@ -903,7 +905,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 }
                 miniResult.getAdapter().notifyDataSetChanged();
             }
-        });
+        });*/
 
     }
 }

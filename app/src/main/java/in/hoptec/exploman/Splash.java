@@ -795,6 +795,8 @@ private class StartNextRotate implements Animation.AnimationListener {
     {
 
 
+        if(utl.readUserData()==null)
+            utl.showDig(true,ctx);
         String url=Constants.HOST+Constants.API_USER_REG_GET+"?"+
                 "user_name="+ URLEncoder.encode(""+tmpusr.user_name) +
                 "&user_email="+ URLEncoder.encode(""+tmpusr.user_email) +
@@ -819,6 +821,7 @@ private class StartNextRotate implements Animation.AnimationListener {
                         utl.writeUserData(new GenricUser(oUser),ctx);
 
 
+                         utl.showDig(false,ctx);
 
 
                         if(response.contains("error"))
@@ -839,6 +842,7 @@ private class StartNextRotate implements Animation.AnimationListener {
 
                     @Override
                     public void onError(ANError ANError) {
+                         utl.showDig(false,ctx);
 
                         utl.e("err 566"+ANError.getErrorBody());
                         if(utl.readUserData()!=null)

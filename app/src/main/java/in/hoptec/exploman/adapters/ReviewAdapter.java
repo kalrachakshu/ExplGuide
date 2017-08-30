@@ -90,6 +90,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
 
         cv.tvName.setText( (cat.userFname));
         cv.tvComment.setText( (cat.message));
+        cv.rating.setRating(Float.parseFloat(cat.rating));
         //cv.time.setText(cat.getCreatedAt());
 
         try {
@@ -110,6 +111,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
             e.printStackTrace();
         }
 
+
+        cv.view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                cab.like(cat,  true);
+                return false;
+            }
+        });
 
         cv.view.setOnClickListener(new View.OnClickListener() {
             @Override
