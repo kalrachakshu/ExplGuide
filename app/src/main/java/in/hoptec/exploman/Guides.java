@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -14,12 +15,20 @@ import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.hoptec.exploman.adapters.GuideAdapter;
+import in.hoptec.exploman.database.Guide;
 import in.hoptec.exploman.database.Place;
+import in.hoptec.exploman.database.Review;
 
 public class Guides extends AppCompatActivity {
 
@@ -45,6 +54,11 @@ public class Guides extends AppCompatActivity {
 
     GenricUser user;
     Place place;
+
+    ArrayList<Guide> guides;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +90,28 @@ public class Guides extends AppCompatActivity {
 
         load(LOADING);
         String url=Constants.HOST+Constants.API_GET_GUIDES+"?place_id="+place.id;
-        AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+        AndroidNetworking.get(url).build().getAsJSONArray(new JSONArrayRequestListener() {
             @Override
-            public void onResponse(String response) {
-                load(EMPTY);
+            public void onResponse(JSONArray response) {
+
+
+                utl.l(response);
+
+                guides =new ArrayList<Guide>();
+                for(int i=0;i<response.length();i++)
+                {
+                    try {
+                        guides.add(utl.js.fromJson(response.get(i).toString(),Guide.class));
+                        guides.add(utl.js.fromJson(response.get(i).toString(),Guide.class));
+                        guides.add(utl.js.fromJson(response.get(i).toString(),Guide.class));
+                        guides.add(utl.js.fromJson(response.get(i).toString(),Guide.class));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                setUpGuides(guides);
+
             }
 
             @Override
@@ -144,6 +176,38 @@ public class Guides extends AppCompatActivity {
 
     }
 
+
+    public void setUpGuides(ArrayList<Guide> reviews)
+    {
+        if(reviews.size()==0)
+        {
+            load(EMPTY);
+            return;
+        }
+        load(LOADED);
+
+        GuideAdapter adapter=new GuideAdapter(ctx, reviews, new GuideAdapter.CallBacks() {
+            @Override
+            public void save(Guide cat, int id) {
+
+            }
+
+            @Override
+            public void car(Guide cat, boolean like) {
+
+            }
+
+            @Override
+            public void click(Guide cat, int id, View v) {
+
+            }
+        });
+        rec.setLayoutManager(new LinearLayoutManager(ctx));
+        rec.setAdapter(adapter);
+
+
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

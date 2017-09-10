@@ -319,7 +319,7 @@ public class SplashView extends View {
             // the way transparent circle is drawn is a little tricky. Instead of cutting a circle out of a rectangle
             // a hollow circle with very thick walls is drawn instead. The thickness of the walls is determined by the
             // stroke width of the paint. The circle radius and stroke with are calculated in order to draw the smallest
-            // possible circle that will look like a rectangle with a hole cut out of it in the given view
+            // possible circle that will look car a rectangle with a hole cut out of it in the given view
             float strokeWidth = mDiagonalDist - mHoleRadius;
             float circleRadius = mHoleRadius + strokeWidth / 2;
 
