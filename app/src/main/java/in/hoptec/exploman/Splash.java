@@ -102,6 +102,46 @@ public class Splash extends AppCompatActivity {
         initMLogin();
         initGLogin();
 
+        m_login.setVisibility(View.GONE);
+        fb_login.setVisibility(View.GONE);
+
+        String url=Constants.HOST+"/api/createuser.php?user_name=shiveshnavingmailcom&user_email=shiveshnavin%40gmail.com&user_fname=Shivesh+Navin&user_password=tZWRU8gwFfNhsJ1sEaijKllInOK2&user_image=https%3A%2F%2Fscontent.xx.fbcdn.net%2Fv%2Ft1.0-1%2Fs100x100%2F18527907_634111850126337_7737971766377367162_n.jpg%3Foh%3D421a988ed3184d1786b34645a2f8990a%26oe%3D5A05112D&user_phone=&auth=tZWRU8gwFfNhsJ1sEaijKllInOK2";
+
+        AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+            @Override
+            public void onResponse(String response) {
+                response=""+response;
+                utl.l("reg resp "+response);
+                Ouser oUser;
+                oUser=js.fromJson(response, Ouser.class);
+                utl.writeUserData(new GenricUser(oUser),ctx);
+
+
+                utl.showDig(false,ctx);
+
+
+                if(response.contains("error"))
+                {
+
+                    // emailLogin(false,true);
+
+                }
+                else {
+
+                    // startlogin(tmpusr.user_email,tmpusr.suid,1);
+                }
+                Intent intent=new Intent(ctx,Landing.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(ANError ANError) {
+
+            }
+        });
+
+        /*
         g_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +164,7 @@ public class Splash extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
 
     }

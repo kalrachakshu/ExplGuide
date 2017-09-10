@@ -13,8 +13,9 @@ public class Constants {
 
 
 
-    // public static String HOST="https://bigpitch.000webhostapp.com/explooman";
-     public static String HOST="http://10.42.0.81/exploman";
+    public static String HOST="http://explooman.com";
+   // public static String HOST="https://bigpitch.000webhostapp.com/explooman";
+    //  public static String HOST="http://10.42.0.81/exploman";
 
     public static String API_USER_REG_GET="/api/createuser.php";
     public static String API_USER_LOGIN_GET="/api/login.php";
