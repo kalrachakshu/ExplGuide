@@ -179,9 +179,6 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     public void packages()
     {
 
-
-
-
     }
     public void showBottomBar(final Place plc) {
         LinearLayout lt = (LinearLayout) findViewById(R.id.bottom);
@@ -475,7 +472,11 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 clicked=marker;
                 // utl.l("Cliecked marker "+marker.getPosition().toString()+"\n"+marker.getTitle());
 
-                showBottomBar(getPlaceByMarker(marker));
+                try {
+                    showBottomBar(getPlaceByMarker(marker));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 return false;
             }

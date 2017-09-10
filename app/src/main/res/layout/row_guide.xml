@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/grey_400"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_above="@+id/line"
+        android:elevation="2dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="vertical"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+
+                android:layout_weight="0.7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:src="@drawable/user"
+                        android:layout_gravity="center"
+                        android:id="@+id/ivUserAvatar"
+                        android:layout_width="@dimen/comment_avatar_size"
+                        android:layout_height="@dimen/comment_avatar_size"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/bg_comment_avatar" />
+
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.daniribalbert.customfontlib.views.CustomFontTextView
+                            app:font="avenir-next-regular"
+                            android:id="@+id/tvName"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="John Doe" />
+
+                        <com.daniribalbert.customfontlib.views.CustomFontTextView
+                            app:font="avenir-next-regular"
+                            android:textSize="13sp"
+                            android:id="@+id/tvComment"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lorem ipsum dolor sit amet" />
+
+
+                        <LinearLayout
+                            android:gravity="left"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+                            <android.support.v7.widget.AppCompatRatingBar
+
+
+                                android:rating="4.5"
+                                android:max="5"
+                                android:id="@+id/rating"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:id="@+id/next"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/ic_navigate_next_black_48dp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:background="@color/grey_200"
+                android:weightSum="0.6"
+                android:layout_weight="0.3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    android:weightSum="1"
+                    android:id="@+id/car_h"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/car_i"
+                        android:src="@drawable/ic_directions_car_black_12dp"
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+
+                    <Button
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/grey_800"
+                        android:text="SX4"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:id="@+id/car"
+                        android:layout_weight="0.7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    android:weightSum="1"
+                    android:id="@+id/rate_h"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/rate_i"
+                        android:src="@drawable/money"
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/grey_800"
+                        android:text="29.6/Hr"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:id="@+id/rate"
+                        android:layout_weight="0.7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:padding="2dp"
+                    android:weightSum="1"
+                    android:id="@+id/save_h"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/save_i"
+                        android:src="@drawable/ic_bookmark_black_48dp"
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/grey_800"
+                        android:text="SAVE"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:id="@+id/save"
+                        android:layout_weight="0.7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" />
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+    <View
+        android:layout_alignParentBottom="true"
+         android:id="@+id/line"
+        android:background="@color/grey_100"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+
+
+</RelativeLayout>
