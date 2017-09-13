@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#149dcc</color>
-    <color name="colorPrimaryDark">#2962ff</color>
-    <color name="colorAccent">#149dcc</color>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorPrimaryLight">#B3E5FC</color>
+    <color name="colorAccent">#448AFF</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
 
     <color name="button_accent1">#149dcc</color>
     <color name="button_accent2">#149dcc</color>
@@ -21,6 +28,7 @@
     <color name="ic_accent2">#ff3366</color>
     <color name="ic_accent3">#ff3366</color>
 
+    <color name="guide_list_sub_accent">@color/grey_600</color>
 
     <color name="material_drawer_background">#1a1a1c</color>
     <color name="material_drawer_primary_text">#2979ff</color>
@@ -39,15 +47,6 @@
     <color name="color_splash_accent">#000</color>
     <color name="transparent_semi">#a9bdbdbd</color>
 
-
-    <color name="primary">#009688</color>
-    <color name="primary_dark">#00796B</color>
-    <color name="primary_light">#B2DFDB</color>
-    <color name="accent">#4CAF50</color>
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#757575</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#BDBDBD</color>
 
 
 

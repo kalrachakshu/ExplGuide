@@ -39,6 +39,7 @@
                     android:paddingTop="8dp">
 
                     <ImageView
+                        android:transitionName="@string/activity_guide_details_trans"
                         android:src="@drawable/user"
                         android:layout_gravity="center"
                         android:id="@+id/ivUserAvatar"
@@ -110,7 +111,6 @@
 
 
             <LinearLayout
-                android:background="@color/grey_200"
                 android:weightSum="0.6"
                 android:layout_weight="0.4"
                 android:layout_width="match_parent"
@@ -135,12 +135,12 @@
                         android:layout_height="wrap_content" />
 
 
-                    <Button
+                    <com.daniribalbert.customfontlib.views.CustomFontTextView
+                        app:font="aRoboto-Thin"
                         android:gravity="left|center_vertical"
                         android:textColor="@color/grey_800"
                         android:text="SX4"
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:id="@+id/car"
+                         android:id="@+id/car"
                         android:layout_weight="0.7"
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />
@@ -170,12 +170,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
 
-                    <Button
+                    <com.daniribalbert.customfontlib.views.CustomFontTextView
+                        app:font="Roboto-Thin"
                         android:gravity="left|center_vertical"
                         android:textColor="@color/grey_800"
                         android:text="29.6/Hr"
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:id="@+id/rate"
+                         android:id="@+id/rate"
                         android:layout_weight="0.7"
                         android:layout_width="0dp"
                         android:layout_height="match_parent" />

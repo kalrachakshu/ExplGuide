@@ -69,6 +69,8 @@ import in.hoptec.exploman.views.SplashView;
 
 public class Splash extends AppCompatActivity {
 
+
+
     private Context ctx;
     private Activity act;
     private SplashView splashView;
@@ -102,8 +104,13 @@ public class Splash extends AppCompatActivity {
         initMLogin();
         initGLogin();
 
+
+        //todo remove from here
+
+
         m_login.setVisibility(View.GONE);
         fb_login.setVisibility(View.GONE);
+
 
         String url=Constants.HOST+"/api/createuser.php?user_name=shiveshnavingmailcom&user_email=shiveshnavin%40gmail.com&user_fname=Shivesh+Navin&user_password=tZWRU8gwFfNhsJ1sEaijKllInOK2&user_image=https%3A%2F%2Fscontent.xx.fbcdn.net%2Fv%2Ft1.0-1%2Fs100x100%2F18527907_634111850126337_7737971766377367162_n.jpg%3Foh%3D421a988ed3184d1786b34645a2f8990a%26oe%3D5A05112D&user_phone=&auth=tZWRU8gwFfNhsJ1sEaijKllInOK2";
 
@@ -141,6 +148,10 @@ public class Splash extends AppCompatActivity {
             }
         });
 
+        //todo remove to here
+
+
+        //todo uncomment this
         /*
         g_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -351,18 +362,15 @@ public class Splash extends AppCompatActivity {
 private class StartNextRotate implements Animation.AnimationListener {
 
     public void onAnimationEnd(Animation animation) {
-        // TODO Auto-generated method stub
-        Log.d(TAG, "onAnimationEnd......");
+         Log.d(TAG, "onAnimationEnd......");
         image.startAnimation(rotation);
     }
 
     public void onAnimationRepeat(Animation animation) {
-        // TODO Auto-generated method stub
 
     }
 
     public void onAnimationStart(Animation animation) {
-        // TODO Auto-generated method stub
 
     }
 

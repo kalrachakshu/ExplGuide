@@ -2,6 +2,9 @@ package in.hoptec.exploman;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -199,6 +202,21 @@ public class Guides extends AppCompatActivity {
 
             @Override
             public void click(Guide cat, int id, View v) {
+
+
+                Intent it = new Intent(ctx, GuideDetails.class);
+
+                it.putExtra("guide", utl.js.toJson(cat));
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(act,v, getString(R.string.activity_image_trans));
+                    startActivity(it, options.toBundle());
+                } else {
+                    startActivity(it);
+                }
+
 
             }
         });

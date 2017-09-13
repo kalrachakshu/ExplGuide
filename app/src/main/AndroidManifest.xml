@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.hoptec.exploman">
 
+    <!--
+todo
+https://github.com/TangoAgency/material-intro-screen
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -70,16 +74,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:theme="@style/FullScreen"
             android:name=".Landing"
-            android:label="@string/title_activity_landing" />
+            android:label="@string/title_activity_landing"
+            android:theme="@style/FullScreen" />
         <activity
             android:name=".PlaceDetails"
             android:label="@string/title_activity_place_details"
             android:theme="@style/FullScreen" />
         <activity
-            android:theme="@style/FullScreen"
-            android:name=".Guides"></activity>
+            android:name=".Guides"
+            android:theme="@style/FullScreen" />
+        <activity
+            android:name=".GuideDetails"
+            android:label="@string/title_activity_guide_details"
+            android:theme="@style/FullScreen"></activity>
     </application>
 
 </manifest>

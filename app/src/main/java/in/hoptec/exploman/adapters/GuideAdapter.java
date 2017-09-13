@@ -88,13 +88,14 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.CustomViewHo
         Double dp=new Double(i);
         dp=dp%4;
 
-        utl.changeColorDrawable(cv.car_i,R.color.light_blue_700);
-        utl.changeColorDrawable(cv.rate_i,R.color.light_blue_700);
-        utl.changeColorDrawable(cv.save_i,R.color.pink_500);
+        utl.changeColorDrawable(cv.next,R.color.guide_list_sub_accent);
+        utl.changeColorDrawable(cv.car_i,R.color.guide_list_sub_accent);
+        utl.changeColorDrawable(cv.rate_i,R.color.guide_list_sub_accent);
+        utl.changeColorDrawable(cv.save_i,R.color.guide_list_sub_accent);
 
-        cv.car.setTextColor(ctx.getResources().getColor(R.color.light_blue_700));
-        cv.rate.setTextColor(ctx.getResources().getColor(R.color.light_blue_700));
-        cv.save.setTextColor(ctx.getResources().getColor(R.color.pink_500));
+        cv.car.setTextColor(ctx.getResources().getColor(R.color.guide_list_sub_accent));
+        cv.rate.setTextColor(ctx.getResources().getColor(R.color.guide_list_sub_accent));
+        cv.save.setTextColor(ctx.getResources().getColor(R.color.guide_list_sub_accent));
 
 
 
@@ -105,7 +106,7 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.CustomViewHo
         cv.desc.setText( (cat.address));
         cv.rating.setRating(Float.parseFloat(cat.rating));
 
-        cv.rate.setText(cat.rate+"﷼ ");
+        cv.rate.setText(cat.rate+" ﷼ ");
 
         //cv.time.setText(cat.getCreatedAt());
 
@@ -124,7 +125,8 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.CustomViewHo
         } catch (Exception e) {
 
 
-            e.printStackTrace();
+            utl.l("Error loading image in guide adapter");
+           // e.printStackTrace();
         }
 
         cv.save_h.setOnLongClickListener(new View.OnLongClickListener() {
@@ -179,7 +181,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder
     public ImageView car_i,rate_i,save_i;
     public TextView car ,rate ,save ;
     public TextView name, desc,time;
-    public WebView wb;
+    public ImageView next;
     public View line;
     public AppCompatRatingBar rating;
 
@@ -201,6 +203,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder
         car_i=(ImageView)itemView.findViewById(R.id.car_i);
         rate_i=(ImageView)itemView.findViewById(R.id.rate_i);
         save_i=(ImageView)itemView.findViewById(R.id.save_i);
+        next=(ImageView)itemView.findViewById(R.id.next);
 
         car=(TextView)itemView.findViewById(R.id.car);
         rate=(TextView)itemView.findViewById(R.id.rate);
