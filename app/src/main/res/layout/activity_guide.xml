@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:id="@+id/activity_guide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+
+
+        <ImageView
+            android:id="@+id/img"
+            android:scaleType="fitXY"
+            android:src="@drawable/profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <android.support.v7.widget.Toolbar
+            android:layout_alignParentTop="true"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </android.support.v7.widget.Toolbar>
+
+
+
+
+
+        <LinearLayout
+
+            android:background="@color/transblue"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="1"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="0.6"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="Rubik-Regular"
+                    android:layout_above="@+id/sub"
+                    android:gravity="left"
+                    android:text="Choose Login"
+                    android:id="@+id/title"
+                    android:textIsSelectable="true"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+
+                    android:drawablePadding="8dp"
+                    android:drawableLeft="@drawable/ic_location_on_white_18dp"
+                    android:layout_gravity="left"
+                    android:layout_weight="0.5"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/address"
+                    android:gravity="center_vertical"
+                    android:textSize="13sp"
+                    android:text="20 Ampetheater , NY"
+                    android:textColor="@color/white"
+                    app:font="Rubik-Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.FloatingActionButton
+                 android:layout_width="wrap_content"
+                    android:src="@drawable/ic_near_me_white_48dp"
+                    android:id="@+id/go"
+                    android:theme="@style/AppThemeGreen"
+                    app:fabSize="normal"
+                    android:layout_margin="3dp"
+                    android:layout_height="wrap_content" />
+
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/save"
+                    android:src="@drawable/ic_person_pin_white_48dp"
+                    app:fabSize="mini"
+                    android:layout_margin="3dp"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:background="@color/colorPrimary"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="0.9"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:weightSum="1.4"
+                android:layout_weight="0.3"
+                android:layout_width="0dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_local_activity_white_36dp"
+                    android:layout_weight="0.3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="Rubik-Regular"
+                    android:gravity="center"
+                    android:text="5"
+                    android:id="@+id/rating"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="23sp"
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="Rubik-Regular"
+                    android:gravity="center"
+                    android:text="out of 5"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:layout_weight="0.2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:weightSum="1.4"
+                android:layout_weight="0.3"
+                android:layout_width="0dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_terrain_white_48dp"
+                    android:layout_weight="0.3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="Rubik-Regular"
+                    android:gravity="center"
+                    android:text="35"
+                    android:id="@+id/tours"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="23sp"
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="Rubik-Regular"
+                    android:gravity="center"
+                    android:text="tours"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:layout_weight="0.2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:weightSum="1.4"
+                android:layout_weight="0.3"
+                android:layout_width="0dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_local_taxi_white_48dp"
+                    android:layout_weight="0.3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+
+                <ImageView
+                    android:src="@drawable/ic_directions_car_white_36dp"
+                    android:gravity="center"
+                    android:id="@+id/car"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="Rubik-Regular"
+                    android:gravity="center"
+                    android:text="AC Sedan"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:layout_weight="0.2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_margin="7dp"
+            android:background="@color/white"
+            android:layout_height="0.1dp"
+            android:layout_width="match_parent"
+            />
+
+
+
+        <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_marginTop="30dp"
+                android:id="@+id/splash_view2"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/AVLoadingIndicatorView"
+
+                app:indicatorName="LineScalePartyIndicator"
+                app:indicatorColor="@color/red_700"
+                />
+
+            <LinearLayout
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/review_plc"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/write_rev"
+                    android:src="@drawable/ic_rate_review_36pt_3x"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+                    app:font="ClanPro-Book"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/offwhite"
+                    android:text="Be the first to write a review !"
+                    android:textSize="14sp"
+                    android:layout_margin="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/write_rev2"
+                android:text="WRITE REVIEW"
+                style="@style/ButtonWhite"
+                android:textColor="@color/offwhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/rec"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

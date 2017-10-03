@@ -825,9 +825,10 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if(drawerItem==logout)
                         {
-                            //todo UNCOMMENT
-                          //  utl.logout();
-                          //  finish();
+
+
+                            utl.logout();
+                            finish();
                             return false;
                         }
                         if (drawerItem instanceof Nameable) {

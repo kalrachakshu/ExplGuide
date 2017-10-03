@@ -106,9 +106,9 @@ public class Splash extends AppCompatActivity {
 
 
         //todo remove from here
+/*
 
-
-        m_login.setVisibility(View.GONE);
+       m_login.setVisibility(View.GONE);
         fb_login.setVisibility(View.GONE);
 
 
@@ -147,12 +147,12 @@ public class Splash extends AppCompatActivity {
 
             }
         });
-
+*/
         //todo remove to here
 
 
         //todo uncomment this
-        /*
+
         g_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +175,7 @@ public class Splash extends AppCompatActivity {
 
 
             }
-        });*/
+        });
 
 
     }

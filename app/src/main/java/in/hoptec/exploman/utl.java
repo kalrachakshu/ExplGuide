@@ -405,7 +405,8 @@ public class utl {
         try {
             DrawableCompat.setTint(imageView.getDrawable(), ContextCompat.getColor(imageView.getContext(), res));
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
+            utl.l("Drawable TintErr 409");
         }
 
 

@@ -5,6 +5,8 @@
     <color name="colorPrimaryLight">#B3E5FC</color>
     <color name="colorAccent">#448AFF</color>
 
+    <color name="blue_guide">#FF1976D2</color>
+
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
@@ -76,6 +78,7 @@
         <color name="transblack">#cd1a1a1c</color>
         <color name="transparent">#001a1a1c</color>
         <color name="transblack2">#601a1a1c</color>
+        <color name="transblue">#cc0288d1</color>
 
 
 
