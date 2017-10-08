@@ -830,8 +830,15 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                             utl.logout();
                             finish();
                             return false;
+                        }else if(drawerItem==tours)
+                        {
+                            startActivity(new Intent(ctx,Tours.class));
+
+                        }else if(drawerItem==wallet)
+                        {
+                            startActivity(new Intent(ctx,Tours.class));
                         }
-                        if (drawerItem instanceof Nameable) {
+                        else if (drawerItem instanceof Nameable) {
                             Toast.makeText(ctx, ((Nameable) drawerItem).getName().getText(ctx), Toast.LENGTH_SHORT).show();
                         }
                         //we do not consume the event and want the Drawer to continue with the event chain

@@ -74,6 +74,20 @@ public class Constants {
      */
     public static String API_GET_GREVIEWS="/api/greview.php";
 
+    //@GET user_id or guide_id and none for all bookings
+    public static String API_GET_BOOKINGS="/api/get_bookings.php";
+
+
+    //@GET
+    /*
+    place_ids
+    guide_id
+    user_id
+    amount_total
+    status
+     */
+    public static String API_GET_NEW_BOOK="/api/init_book.php";
+
 
 
     public static boolean IS_ANIMATED_BG_SPLASH=false;

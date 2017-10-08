@@ -15,6 +15,9 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.facebook.Profile;
 import com.firebase.client.Firebase;
 import com.google.gson.Gson;
@@ -350,26 +353,8 @@ public class Book extends AppCompatActivity {
                     @Override
                     public void onStart() {
 
-                        utl.showDig(true,ctx);
-                        Handler h=new Handler();
-                        h.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                utl.showDig(false,ctx);
-                                utl.diag(ctx, "Booking Confirmend !", "Booking is Complete . You Can view the transaction and Booking details from Home page .",false, "View", new utl.ClickCallBack() {
-                                    @Override
-                                    public void done(DialogInterface dialogInterface) {
+                        book();
 
-                                        Intent it=new Intent(ctx,Landing.class);
-                                        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(it);
-                                        finish();;
-
-                                    }
-                                });
-                            }
-                        },3000);
-                        //todo
                     }
 
                     @Override
@@ -391,6 +376,55 @@ public class Book extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void book()
+    {
+
+        /*
+
+    place_ids
+    guide_id
+    user_id
+    amount_total
+    status
+         */
+        String url=Constants.HOST+Constants.API_GET_NEW_BOOK+"?"+
+                "place_ids="+place.id+
+                "guide_id="+guide.id+
+                "user_id="+user.uid+
+                "amount_total="+guide.rate+
+                "status=PAID VIA WALLET";
+
+        utl.l(url);
+        utl.showDig(true,ctx);
+
+        ;
+        AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+            @Override
+            public void onResponse(String response) {
+                utl.showDig(false,ctx);
+                utl.diag(ctx, "Booking Confirmed !", "Booking is Complete . You Can view the transaction and Booking details from Home page .",false, "View", new utl.ClickCallBack() {
+                    @Override
+                    public void done(DialogInterface dialogInterface) {
+
+                        Intent it=new Intent(ctx,Landing.class);
+                        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(it);
+                        finish();;
+
+                    }
+                });
+            }
+
+            @Override
+            public void onError(ANError ANError) {
+
+            }
+        });
+
+
+
     }
 
 
