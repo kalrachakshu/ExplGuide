@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -17,15 +18,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.hoptec.exploman.R;
-import in.hoptec.exploman.database.Review;
+import in.hoptec.exploman.database.Booking;
 import in.hoptec.exploman.utl;
 
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomViewHolder> {
-    public List<Review> feedItemList;
+public class TransAdapter extends RecyclerView.Adapter<TransAdapter.CustomViewHolder> {
+    public List<Booking> feedItemList;
     private Context ctx;
 
-    public ReviewAdapter(Context context, List<Review> feedItemList, CallBacks cab) {
+    public TransAdapter(Context context, List<Booking> feedItemList, CallBacks cab) {
         this.feedItemList = feedItemList;
         this.ctx = context;
         this.cab=cab;
@@ -38,7 +39,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_comment,  null, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_trans,  null, false);
       //  view.setLayoutParams(new RecyclerView.LayoutParams(width, RecyclerView.LayoutParams.WRAP_CONTENT));
 
         WindowManager windowManager = (WindowManager)ctx.getSystemService(Context.WINDOW_SERVICE);
@@ -74,7 +75,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     @Override
     public void onBindViewHolder(final CustomViewHolder cv, final int i) {
                //Setting text view title
-      final Review cat=feedItemList.get(i);
+      final Booking cat=feedItemList.get(i);
         final int id=i;
         final Qant qn=new Qant();
 
@@ -87,27 +88,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
 
         final int col=colors[dp.intValue()];
 
-        cv.title.setText( (cat.userFname));
-        cv.sub.setText( (cat.message));
-        cv.rate.setText( (cat.message));
+        cv.tvName.setText( (cat.id));
+        cv.tvComment.setText( "Date: "+cat.startTime+"\nStatus: "+cat.status+"\nGuide: "+cat.guide.name);
+        cv.rating.setRating(Float.parseFloat(cat.amountTotal));
         //cv.time.setText(cat.getCreatedAt());
-
-        try {
-            utl.l(cat.userImage);
-
-
-//            cv.line.setBackgroundColor(ctx.getResources().getColor(col));
-            count++;
-
-
-           // utl.changeColorDrawable(cv.opt,R.color.grey_600);
-
-
-        } catch (Exception e) {
-
-
-            e.printStackTrace();
-        }
 
 
         cv.view.setOnLongClickListener(new View.OnLongClickListener() {
@@ -138,30 +122,33 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     CallBacks cab;
     public static interface CallBacks{
 
-    public void share(Review cat, int id);
+    public void share(Booking cat, int id);
 
-    public void like(Review cat, boolean like);
+    public void like(Booking cat, boolean like);
 
-    public void click(Review cat, int id, View v);
+    public void click(Booking cat, int id, View v);
     }
 
 public class CustomViewHolder extends RecyclerView.ViewHolder
 {
     public View view;
 
-    public TextView title, sub,time;
+    public ImageView ivUserAvatar,like,play;
+    public TextView tvName, tvComment,time;
     public WebView wb;
     public View line;
-    public TextView rate;
+    public AppCompatRatingBar rating;
 
 
     public CustomViewHolder(View itemView) {
         super(itemView);
         view=itemView.findViewById(R.id.container);
 
-        title =(TextView) itemView.findViewById(R.id.name);
-        sub =(TextView) itemView.findViewById(R.id.add);
-        rate =(TextView) itemView.findViewById(R.id.pic);
+       // wb=(WebView) itemView.findViewById(R.id.web);
+        ivUserAvatar =(ImageView) itemView.findViewById(R.id.ivUserAvatar);
+        tvName =(TextView) itemView.findViewById(R.id.tvName);
+        tvComment =(TextView) itemView.findViewById(R.id.tvComment);
+        rating=(AppCompatRatingBar) itemView.findViewById(R.id.rating);
 
 
     }

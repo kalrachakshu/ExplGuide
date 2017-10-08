@@ -35,7 +35,7 @@ public class Constants {
    	$id=$GET["id"];
  	$place_id=$GET["place_id"];
  	$user_id=$GET["user_id"];
- 	$rating=$GET["rating"];
+ 	$rate=$GET["rate"];
  	$message=$GET["message"];
  	$date=$GET["date"];
  	$extra0=$GET["extra0"];
@@ -59,7 +59,7 @@ public class Constants {
    	$id=$GET["id"];
  	$place_id=$GET["guide_id"];
  	$user_id=$GET["user_id"];
- 	$rating=$GET["rating"];
+ 	$rate=$GET["rate"];
  	$message=$GET["message"];
  	$date=$GET["date"];
  	$extra0=$GET["extra0"];

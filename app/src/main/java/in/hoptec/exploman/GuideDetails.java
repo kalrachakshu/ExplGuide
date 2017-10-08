@@ -329,7 +329,7 @@ public class GuideDetails extends AppCompatActivity {
                     String url=Constants.HOST+Constants.API_GET_GREVIEWS+"?";
                     url+="guide_id="+ guide.id;
                     url+="&user_id="+user.uid;
-                    url+="&rating="+ratingf;
+                    url+="&rate="+ratingf;
                     url+="&message="+ URLEncoder.encode(text.getText().toString());
                     url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
 
@@ -354,7 +354,7 @@ public class GuideDetails extends AppCompatActivity {
 
  	$place_id=$GET["place_id"];
  	$user_id=$GET["user_id"];
- 	$rating=$GET["rating"];
+ 	$rate=$GET["rate"];
  	$message=$GET["message"];
  	$date=$GET["date"];
  	$extra0=$GET["extra0"];

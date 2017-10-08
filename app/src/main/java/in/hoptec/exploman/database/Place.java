@@ -38,9 +38,9 @@ public class Place {
     @SerializedName("images")
     @Expose
     public String images;
-    @SerializedName("rating")
+    @SerializedName("rate")
     @Expose
-    public Double rating;
+    public String rating;
     @SerializedName("distance")
     @Expose
     public String distance;

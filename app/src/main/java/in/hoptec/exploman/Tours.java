@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -24,6 +26,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -44,6 +49,14 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
+import in.hoptec.exploman.adapters.ReviewAdapter;
+import in.hoptec.exploman.adapters.TransAdapter;
+import in.hoptec.exploman.database.Booking;
+import in.hoptec.exploman.database.Review;
 import in.hoptec.exploman.utils.GenricCallback;
 
 public class Tours extends AppCompatActivity {
@@ -61,9 +74,11 @@ public class Tours extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+
+    public static RecyclerView rec;
     private ViewPager mViewPager;
-    GenricUser user;
-    public Context ctx;
+    public static GenricUser user;
+    public static Context ctx;
     public Activity act;
     Toolbar toolbar;
     @Override
@@ -71,7 +86,7 @@ public class Tours extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tours);
 
-        ctx=this;
+        ctx=getApplicationContext();
         act=this;
          toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -120,6 +135,87 @@ public class Tours extends AppCompatActivity {
 
     }
 
+    public static void setUpReviews(ArrayList<Booking> reviews)
+    {
+
+        TransAdapter adapter=new TransAdapter(ctx, reviews, new TransAdapter.CallBacks() {
+            @Override
+            public void share(Booking cat, int id) {
+
+            }
+
+            @Override
+            public void like(final Booking cat, boolean like) {
+
+            }
+
+            @Override
+            public void click(Booking cat, int id, View v) {
+
+            }
+        });
+        rec.setLayoutManager(new LinearLayoutManager(ctx));
+        rec.setAdapter(adapter);
+
+        rec.setNestedScrollingEnabled(false);
+
+
+    }
+
+
+    public static void getBookings()
+    {
+
+        String url= Constants.HOST+Constants.API_GET_BOOKINGS+"?user_id="+user.uid;
+
+        utl.l(url);
+        utl.showDig(true,ctx);
+
+        AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
+            @Override
+            public void onResponse(String respons) {
+                try{
+                    utl.showDig(false,ctx);
+
+
+                    utl.l(respons);
+
+
+                    JSONArray response=new JSONArray(respons);
+
+                    ArrayList<Booking> reviews=new ArrayList<Booking>();
+                    for(int i=0;i<response.length();i++)
+                    {
+                        try {
+                            reviews.add(utl.js.fromJson(response.get(i).toString(),Booking.class));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    setUpReviews(reviews);
+
+
+
+
+
+
+
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(ANError ANError) {
+                utl.showDig(false,ctx);
+
+            }
+        });
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,8 +268,11 @@ public class Tours extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_tours, container, false);
+            rec=(RecyclerView) rootView.findViewById(R.id.rec);
+
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            getBookings();
             return rootView;
         }
     }

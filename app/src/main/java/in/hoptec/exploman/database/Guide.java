@@ -41,7 +41,7 @@ public class Guide {
     @SerializedName("images")
     @Expose
     public String images;
-    @SerializedName("rating")
+    @SerializedName("rate")
     @Expose
     public String rating;
     @SerializedName("place_id")

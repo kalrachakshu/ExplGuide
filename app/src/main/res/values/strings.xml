@@ -119,7 +119,7 @@
     <string name="title_activity_tours">Tours</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- <string tvName="default_web_client_id">177983366071638</string> -->
+    <!-- <string title="default_web_client_id">177983366071638</string> -->
 
 
 </resources>

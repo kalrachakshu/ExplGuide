@@ -22,6 +22,7 @@ import com.facebook.Profile;
 import com.firebase.client.Firebase;
 import com.google.gson.Gson;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -49,8 +50,8 @@ public class Book extends AppCompatActivity {
     Request req=null;
     Gson js;
     public static String TAG="STEP 4 PAY";
-    public static Context ctx;
-    public static Activity act;
+    public   Context ctx;
+    public   Activity act;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -394,7 +395,7 @@ public class Book extends AppCompatActivity {
                 "guide_id="+guide.id+
                 "user_id="+user.uid+
                 "amount_total="+guide.rate+
-                "status=PAID VIA WALLET";
+                "status="+ URLEncoder.encode("PAID VIA WALLET");
 
         utl.l(url);
         utl.showDig(true,ctx);
@@ -404,11 +405,12 @@ public class Book extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 utl.showDig(false,ctx);
+                utl.l(response);
                 utl.diag(ctx, "Booking Confirmed !", "Booking is Complete . You Can view the transaction and Booking details from Home page .",false, "View", new utl.ClickCallBack() {
                     @Override
                     public void done(DialogInterface dialogInterface) {
 
-                        Intent it=new Intent(ctx,Landing.class);
+                        Intent it=new Intent(ctx,Tours.class);
                         it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(it);
                         finish();;
@@ -419,6 +421,7 @@ public class Book extends AppCompatActivity {
 
             @Override
             public void onError(ANError ANError) {
+                utl.showDig(false,ctx);
 
             }
         });

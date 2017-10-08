@@ -323,7 +323,7 @@ public class PlaceDetails extends AppCompatActivity {
                     String url=Constants.HOST+Constants.API_GET_PREVIEWS+"?";
                     url+="place_id="+place.id;
                     url+="&user_id="+user.uid;
-                    url+="&rating="+ratingf;
+                    url+="&rate="+ratingf;
                     url+="&message="+ URLEncoder.encode(text.getText().toString());
                     url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
 
@@ -348,7 +348,7 @@ public class PlaceDetails extends AppCompatActivity {
 
  	$place_id=$GET["place_id"];
  	$user_id=$GET["user_id"];
- 	$rating=$GET["rating"];
+ 	$rate=$GET["rate"];
  	$message=$GET["message"];
  	$date=$GET["date"];
  	$extra0=$GET["extra0"];
@@ -526,7 +526,7 @@ public class PlaceDetails extends AppCompatActivity {
         utl.l(pla.toString());
         title.setText(pla.name);
         desc.setText(pla.desc);
-        rate.setRating(pla.rating.floatValue());
+        rate.setRating(Float.parseFloat(pla.rating));
         address.setText(pla.address);
 
         strip=pla.getImages();

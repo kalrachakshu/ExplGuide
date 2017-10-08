@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/activity_myapp"
+    android:background="@drawable/btn_sel_hws"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:weightSum="1"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp"
+    android:orientation="vertical"  >
+
+
+
+    <LinearLayout
+        android:weightSum="1"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            android:layout_marginTop="3dp"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:text="377.8"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_height="match_parent"
+             android:id="@+id/pic">
+        </com.daniribalbert.customfontlib.views.CustomFontTextView>
+
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.66"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_marginTop="2dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.daniribalbert.customfontlib.views.CustomFontTextView
+
+
+                    app:font="Avenir-Medium"
+                    android:layout_weight="0.85"
+                    android:singleLine="true"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="BAR STOCK EXCHANGE"
+                    android:textSize="14sp"
+                    android:gravity="bottom|left"
+                    android:id="@+id/name"/>
+
+
+
+
+
+            </LinearLayout>
+
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+                app:font="Roboto-Thin"
+
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:text="C-15,Lower Parel,Mumbai"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:gravity="top|left"
+                android:id="@+id/add">
+            </com.daniribalbert.customfontlib.views.CustomFontTextView>
+
+            <com.daniribalbert.customfontlib.views.CustomFontTextView
+                app:font="Roboto-Thin"
+                android:textSize="12sp"
+
+                android:visibility="gone"
+                android:text="7 Km Away"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|left"
+                android:id="@+id/dist">
+            </com.daniribalbert.customfontlib.views.CustomFontTextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <com.daniribalbert.customfontlib.views.CustomFontTextView
+        app:font="Avenir-Medium"
+        android:visibility="gone"
+        android:layout_weight="0.25"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="17sp"
+        android:text="5 PEOPLE LIVE NOW"
+        android:paddingTop="7dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/live">
+
+
+
+
+    </com.daniribalbert.customfontlib.views.CustomFontTextView>
+
+    <LinearLayout
+        android:weightSum="1"
+
+        android:visibility="gone"
+        android:layout_weight="0.27"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal">
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -209,8 +209,12 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         lt.setVisibility(View.VISIBLE);
 
         rate.setVisibility(View.VISIBLE);
-        rate.setRating(plc.rating.floatValue());
-        rate.setRating(4.5f);
+        try {
+            rate.setRating(Float.parseFloat(plc.rating));
+            rate.setRating(4.5f);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         name.setText(plc.name);
 
         utl.changeColorDrawable(go, R.color.blue_600);
@@ -832,13 +836,9 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                             return false;
                         }else if(drawerItem==tours)
                         {
-                            startActivity(new Intent(ctx,Tours.class));
 
-                        }else if(drawerItem==wallet)
-                        {
-                            startActivity(new Intent(ctx,Tours.class));
                         }
-                        else if (drawerItem instanceof Nameable) {
+                        if (drawerItem instanceof Nameable) {
                             Toast.makeText(ctx, ((Nameable) drawerItem).getName().getText(ctx), Toast.LENGTH_SHORT).show();
                         }
                         //we do not consume the event and want the Drawer to continue with the event chain
