@@ -29,7 +29,7 @@ public class Review {
     @SerializedName("message")
     @Expose
     public String message;
-    @SerializedName("rate")
+    @SerializedName("rating")
     @Expose
     public String rating;
     @SerializedName("date")

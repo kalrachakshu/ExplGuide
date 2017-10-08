@@ -141,7 +141,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         Intent it = new Intent(ctx, PlaceDetails.class);
 
-        it.putExtra("place", utl.js.toJson(plc));
+        it.putExtra("guide", utl.js.toJson(plc));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -209,12 +209,8 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         lt.setVisibility(View.VISIBLE);
 
         rate.setVisibility(View.VISIBLE);
-        try {
-            rate.setRating(Float.parseFloat(plc.rating));
-            rate.setRating(4.5f);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        rate.setRating(plc.rating.floatValue());
+        rate.setRating(4.5f);
         name.setText(plc.name);
 
         utl.changeColorDrawable(go, R.color.blue_600);
@@ -294,15 +290,8 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 for (int i = 0; i < response.length(); i++) {
 
                     try {
-                        final Place pl=utl.js.fromJson(response.get(i).toString(), Place.class);
-
-                        JSONObject jo=response.getJSONObject(i);
-                        pl.rating=jo.getString("rate");
-
-                        places.add();
-                        utl.l("PLACZZZ",response.get(i).toString());
-                        utl.l("PLACZ",utl.js.fromJson(response.get(i).toString(), Place.class).toString());
-                    } catch (Exception e) {
+                        places.add(utl.js.fromJson(response.get(i).toString(), Place.class));
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
@@ -841,10 +830,10 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                             utl.logout();
                             finish();
                             return false;
-                        }else if(drawerItem==tours)
+                        }else if(drawerItem==tours || drawerItem==wallet)
                         {
-
-                        }
+                            startActivity(new Intent(ctx,Tours.class));
+                         }
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(ctx, ((Nameable) drawerItem).getName().getText(ctx), Toast.LENGTH_SHORT).show();
                         }

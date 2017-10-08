@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/activity_myapp"
+<LinearLayout android:id="@+id/container"
     android:background="@drawable/btn_sel_hws"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="100dp"
     android:weightSum="1"
-    android:layout_marginBottom="5dp"
-    android:padding="5dp"
     android:orientation="vertical"  >
 
 
 
     <LinearLayout
+        android:layout_margin="3dp"
         android:weightSum="1"
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -32,6 +31,8 @@
         </com.daniribalbert.customfontlib.views.CustomFontTextView>
 
         <LinearLayout
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_weight="0.66"
             android:layout_width="0dp"
@@ -70,7 +71,7 @@
                 app:font="Roboto-Thin"
 
                 android:textSize="12sp"
-                android:maxLines="2"
+                android:maxLines="10"
                 android:text="C-15,Lower Parel,Mumbai"
                 android:layout_width="match_parent"
 

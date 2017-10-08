@@ -59,7 +59,7 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.CustomViewHo
       //  par=new LinearLayout.LayoutParams(w.intValue(), utl.pxFromDp(ctx,170F).intValue());
 
 
-        par.bottomMargin=4;
+        //par.bottomMargin=4;
         view.setLayoutParams(par);
 
 //        YoYo.with(Techniques.SlideInLeft).duration(500).playOn( view);
@@ -88,9 +88,9 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.CustomViewHo
 
         final int col=colors[dp.intValue()];
 
-        cv.tvName.setText( (cat.id));
-        cv.tvComment.setText( "Date: "+cat.startTime+"\nStatus: "+cat.status+"\nGuide: "+cat.guide.name);
-        cv.rating.setRating(Float.parseFloat(cat.amountTotal));
+        cv.title.setText( ("Transaction ID : 00000"+cat.id));
+        cv.sub.setText( "Date: "+cat.startTime+"\nStatus: "+cat.status+"\nGuide: "+cat.guide.name);
+        cv.rate.setText(("Rs. "+cat.amountTotal));
         //cv.time.setText(cat.getCreatedAt());
 
 
@@ -129,33 +129,31 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.CustomViewHo
     public void click(Booking cat, int id, View v);
     }
 
-public class CustomViewHolder extends RecyclerView.ViewHolder
-{
-    public View view;
+    public class CustomViewHolder extends RecyclerView.ViewHolder
+    {
+        public View view;
 
-    public ImageView ivUserAvatar,like,play;
-    public TextView tvName, tvComment,time;
-    public WebView wb;
-    public View line;
-    public AppCompatRatingBar rating;
-
-
-    public CustomViewHolder(View itemView) {
-        super(itemView);
-        view=itemView.findViewById(R.id.container);
-
-       // wb=(WebView) itemView.findViewById(R.id.web);
-        ivUserAvatar =(ImageView) itemView.findViewById(R.id.ivUserAvatar);
-        tvName =(TextView) itemView.findViewById(R.id.tvName);
-        tvComment =(TextView) itemView.findViewById(R.id.tvComment);
-        rating=(AppCompatRatingBar) itemView.findViewById(R.id.rating);
+        public TextView title, sub,time;
+        public WebView wb;
+        public View line;
+        public TextView rate;
 
 
+        public CustomViewHolder(View itemView) {
+            super(itemView);
+            view=itemView.findViewById(R.id.container);
+
+            title =(TextView) itemView.findViewById(R.id.name);
+            sub =(TextView) itemView.findViewById(R.id.add);
+            rate =(TextView) itemView.findViewById(R.id.pic);
+
+
+        }
     }
-}
 
 
-public class Dummy
+
+    public class Dummy
 {
 
 }

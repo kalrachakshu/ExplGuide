@@ -98,6 +98,7 @@ public class Tours extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1,true);
 
         setTitle("");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -272,7 +273,8 @@ public class Tours extends AppCompatActivity {
 
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            getBookings();
+            if(getArguments().getInt(ARG_SECTION_NUMBER)==1)
+                getBookings();
             return rootView;
         }
     }
@@ -306,7 +308,7 @@ public class Tours extends AppCompatActivity {
                 case 0:
                     return "My Tours";
                 case 1:
-                    return "Wallet";
+                    return "Transactions";
                 case 2:
                     return "SECTION 3";
             }

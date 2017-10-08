@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -87,14 +88,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
 
         final int col=colors[dp.intValue()];
 
-        cv.title.setText( (cat.userFname));
-        cv.sub.setText( (cat.message));
-        cv.rate.setText( (cat.message));
+        cv.tvName.setText( (cat.userFname));
+        cv.tvComment.setText( (cat.message));
+        cv.rating.setRating(Float.parseFloat(cat.rating));
         //cv.time.setText(cat.getCreatedAt());
 
         try {
             utl.l(cat.userImage);
 
+            Picasso.with(ctx).load(cat.userImage).placeholder(R.drawable.user).into(cv.ivUserAvatar);
 
 //            cv.line.setBackgroundColor(ctx.getResources().getColor(col));
             count++;
@@ -145,28 +147,30 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.CustomView
     public void click(Review cat, int id, View v);
     }
 
-public class CustomViewHolder extends RecyclerView.ViewHolder
-{
-    public View view;
+    public class CustomViewHolder extends RecyclerView.ViewHolder
+    {
+        public View view;
 
-    public TextView title, sub,time;
-    public WebView wb;
-    public View line;
-    public TextView rate;
-
-
-    public CustomViewHolder(View itemView) {
-        super(itemView);
-        view=itemView.findViewById(R.id.container);
-
-        title =(TextView) itemView.findViewById(R.id.name);
-        sub =(TextView) itemView.findViewById(R.id.add);
-        rate =(TextView) itemView.findViewById(R.id.pic);
+        public ImageView ivUserAvatar,like,play;
+        public TextView tvName, tvComment,time;
+        public WebView wb;
+        public View line;
+        public AppCompatRatingBar rating;
 
 
+        public CustomViewHolder(View itemView) {
+            super(itemView);
+            view=itemView.findViewById(R.id.container);
+
+            // wb=(WebView) itemView.findViewById(R.id.web);
+            ivUserAvatar =(ImageView) itemView.findViewById(R.id.ivUserAvatar);
+            tvName =(TextView) itemView.findViewById(R.id.tvName);
+            tvComment =(TextView) itemView.findViewById(R.id.tvComment);
+            rating=(AppCompatRatingBar) itemView.findViewById(R.id.rating);
+
+
+        }
     }
-}
-
 
 public class Dummy
 {

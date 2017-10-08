@@ -392,10 +392,10 @@ public class Book extends AppCompatActivity {
          */
         String url=Constants.HOST+Constants.API_GET_NEW_BOOK+"?"+
                 "place_ids="+place.id+
-                "guide_id="+guide.id+
-                "user_id="+user.uid+
-                "amount_total="+guide.rate+
-                "status="+ URLEncoder.encode("PAID VIA WALLET");
+                "&guide_id="+guide.id+
+                "&user_id="+user.uid+
+                "&amount_total="+guide.rate+
+                "&status="+ URLEncoder.encode("PAID VIA WALLET");
 
         utl.l(url);
         utl.showDig(true,ctx);
