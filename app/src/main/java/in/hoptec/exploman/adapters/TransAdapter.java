@@ -88,8 +88,8 @@ public class TransAdapter extends RecyclerView.Adapter<TransAdapter.CustomViewHo
 
         final int col=colors[dp.intValue()];
 
-        cv.title.setText( ("Transaction ID : 00000"+cat.id));
-        cv.sub.setText( "Date: "+cat.startTime+"\nStatus: "+cat.status+"\nGuide: "+cat.guide.name);
+        cv.title.setText( ("Transaction ID : 00000"+cat.id+"\nGuide: "+cat.guide.name));
+        cv.sub.setText( "Date: "+cat.startTime+"\nStatus: "+cat.status);
         cv.rate.setText(("Rs. "+cat.amountTotal));
         //cv.time.setText(cat.getCreatedAt());
 

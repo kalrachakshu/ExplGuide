@@ -52,8 +52,7 @@
 
                     app:font="Avenir-Medium"
                     android:layout_weight="0.85"
-                    android:singleLine="true"
-                    android:layout_width="0dp"
+                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="BAR STOCK EXCHANGE"
                     android:textSize="14sp"
@@ -129,5 +128,11 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/grey_500"/>
 
 </LinearLayout>

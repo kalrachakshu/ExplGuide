@@ -75,8 +75,7 @@ public class Tours extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
 
-    public static RecyclerView rec;
-    private ViewPager mViewPager;
+     private ViewPager mViewPager;
     public static GenricUser user;
     public static Context ctx;
     public Activity act;
@@ -98,7 +97,8 @@ public class Tours extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1,true);
+       // mViewPager.setCurrentItem(1,true);
+       // mViewPager.setCurrentItem(1,true);
 
         setTitle("");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -136,7 +136,7 @@ public class Tours extends AppCompatActivity {
 
     }
 
-    public static void setUpReviews(ArrayList<Booking> reviews)
+    public static void setUpReviews(ArrayList<Booking> reviews,RecyclerView rec)
     {
 
         TransAdapter adapter=new TransAdapter(ctx, reviews, new TransAdapter.CallBacks() {
@@ -164,7 +164,7 @@ public class Tours extends AppCompatActivity {
     }
 
 
-    public static void getBookings()
+    public static void getBookings(final RecyclerView rec)
     {
 
         String url= Constants.HOST+Constants.API_GET_BOOKINGS+"?user_id="+user.uid;
@@ -193,7 +193,7 @@ public class Tours extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    setUpReviews(reviews);
+                    setUpReviews(reviews,rec);
 
 
 
@@ -269,12 +269,12 @@ public class Tours extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_tours, container, false);
-            rec=(RecyclerView) rootView.findViewById(R.id.rec);
+               RecyclerView  rec=(RecyclerView) rootView.findViewById(R.id.rec);
 
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            if(getArguments().getInt(ARG_SECTION_NUMBER)==1)
-                getBookings();
+
+                getBookings(rec);
             return rootView;
         }
     }
@@ -308,7 +308,7 @@ public class Tours extends AppCompatActivity {
                 case 0:
                     return "My Tours";
                 case 1:
-                    return "Transactions";
+                    return "Wallet";
                 case 2:
                     return "SECTION 3";
             }
