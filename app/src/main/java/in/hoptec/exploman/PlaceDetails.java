@@ -139,7 +139,7 @@ public class PlaceDetails extends AppCompatActivity {
 
 
         ButterKnife.bind(this);
-        place=utl.js.fromJson(getIntent().getStringExtra("guide"),Place.class);
+        place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
 
         if(place!=null)
         {
@@ -526,7 +526,11 @@ public class PlaceDetails extends AppCompatActivity {
         utl.l(pla.toString());
         title.setText(pla.name);
         desc.setText(pla.desc);
-        rate.setRating(Float.parseFloat(pla.rating));
+        try {
+            rate.setRating(Float.parseFloat(pla.rating));
+        } catch ( Exception e) {
+            e.printStackTrace();
+        }
         address.setText(pla.address);
 
         strip=pla.getImages();

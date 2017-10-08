@@ -141,7 +141,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         Intent it = new Intent(ctx, PlaceDetails.class);
 
-        it.putExtra("guide", utl.js.toJson(plc));
+        it.putExtra("place", utl.js.toJson(plc));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -294,8 +294,15 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                 for (int i = 0; i < response.length(); i++) {
 
                     try {
-                        places.add(utl.js.fromJson(response.get(i).toString(), Place.class));
-                    } catch (JSONException e) {
+                        final Place pl=utl.js.fromJson(response.get(i).toString(), Place.class);
+
+                        JSONObject jo=response.getJSONObject(i);
+                        pl.rating=jo.getString("rate");
+
+                        places.add();
+                        utl.l("PLACZZZ",response.get(i).toString());
+                        utl.l("PLACZ",utl.js.fromJson(response.get(i).toString(), Place.class).toString());
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
