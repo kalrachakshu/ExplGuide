@@ -88,6 +88,12 @@ https://github.com/TangoAgency/material-intro-screen
             android:name=".GuideDetails"
             android:label="@string/title_activity_guide_details"
             android:theme="@style/FullScreen"></activity>
+        <activity
+            android:name=".Pay"
+            android:theme="@style/FullScreen" />
+        <activity
+            android:name=".Book"
+            android:theme="@style/FullScreen" />
     </application>
 
 </manifest>

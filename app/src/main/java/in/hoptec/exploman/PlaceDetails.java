@@ -139,7 +139,7 @@ public class PlaceDetails extends AppCompatActivity {
 
 
         ButterKnife.bind(this);
-        place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
+        place=utl.js.fromJson(getIntent().getStringExtra("guide"),Place.class);
 
         if(place!=null)
         {
@@ -603,5 +603,17 @@ public class PlaceDetails extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+
+        Intent it=new Intent(ctx,Landing.class);
+        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(it);
+        finish();;
+
     }
 }

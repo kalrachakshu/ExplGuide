@@ -13,7 +13,7 @@ public class Constants {
 
 
 
-    public static String HOST="http://explooman.com";
+    public static String HOST="http://192.168.1.101/exploman";
    // public static String HOST="https://bigpitch.000webhostapp.com/explooman";
     //  public static String HOST="http://10.42.0.81/exploman";
 

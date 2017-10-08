@@ -141,7 +141,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         Intent it = new Intent(ctx, PlaceDetails.class);
 
-        it.putExtra("place", utl.js.toJson(plc));
+        it.putExtra("guide", utl.js.toJson(plc));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -163,7 +163,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         for (Place place : places
                 ) {
 
-            //utl.l("Search : "+place.lat+" / "+place.lng+"\n and "+mr.getPosition().toString() );
+            //utl.l("Search : "+guide.lat+" / "+guide.lng+"\n and "+mr.getPosition().toString() );
             if (place.lat == mr.getPosition().latitude && place.lng == mr.getPosition().longitude)
                 fnd = place;
 
@@ -205,7 +205,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         }
 
 
-        utl.l("showing place :" + utl.js.toJson(plc));
+        utl.l("showing guide :" + utl.js.toJson(plc));
         lt.setVisibility(View.VISIBLE);
 
         rate.setVisibility(View.VISIBLE);
@@ -244,7 +244,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         for (int i = 0; i < places.size(); i++) {
             final Place place = places.get(i);
             place.marker = getMarker(place.lat, place.lng, place.name);
-            utl.l("Adding place : "+place.name);
+            utl.l("Adding guide : "+place.name);
             places.set(i, place);
 
         }
@@ -437,7 +437,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            // for ActivityCompat#requestPermissions for location details.
 
         }
         mMap.setMyLocationEnabled(true);

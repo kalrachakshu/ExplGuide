@@ -2,11 +2,12 @@ package in.hoptec.exploman;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -48,8 +48,6 @@ public class GuideDetails extends AppCompatActivity {
 
     @BindView(R.id.img)
     ImageView imag;
-
-
 
     @BindView(R.id.write_rev)
     ImageView write_rev;
@@ -77,6 +75,10 @@ public class GuideDetails extends AppCompatActivity {
 
 
 
+    @BindView(R.id.tours)
+    TextView hourly;
+
+
 
     @BindView(R.id.rec)
     RecyclerView rec;
@@ -86,8 +88,9 @@ public class GuideDetails extends AppCompatActivity {
     public Context ctx;
     public Activity act;
 
-    Guide place;
+    Guide guide;
 
+    Place place;
 
     GenricUser user;
     @Override
@@ -117,12 +120,31 @@ public class GuideDetails extends AppCompatActivity {
 
 
         user=utl.readUserData();
-        place=utl.js.fromJson(getIntent().getStringExtra("guide"),Guide.class);
-        fill(place);
+        guide =utl.js.fromJson(getIntent().getStringExtra("guide"),Guide.class);
+        place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
+
+        fill(guide);
 
         findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                Intent it = new Intent(ctx, Book.class);
+
+                it.putExtra("guide", utl.js.toJson(guide));
+                it.putExtra("place", utl.js.toJson(place));
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(act,findViewById(R.id.gd), getString(R.string.activity_image_trans));
+                    startActivity(it, options.toBundle());
+                } else {
+                    startActivity(it);
+                }
+
+
 
             }
         });
@@ -130,6 +152,9 @@ public class GuideDetails extends AppCompatActivity {
         findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                utl.snack(act,"Guide Bio Here");
+
 
             }
         });
@@ -145,6 +170,7 @@ public class GuideDetails extends AppCompatActivity {
         title.setText(""+pla.name);
         rating.setText(""+pla.rating);
         address.setText(""+pla.address);
+        hourly.setText(""+pla.rate);
 
 
         try {
@@ -301,7 +327,7 @@ public class GuideDetails extends AppCompatActivity {
                 }else {
                     mBottomSheetDialog.dismiss();
                     String url=Constants.HOST+Constants.API_GET_GREVIEWS+"?";
-                    url+="guide_id="+place.id;
+                    url+="guide_id="+ guide.id;
                     url+="&user_id="+user.uid;
                     url+="&rating="+ratingf;
                     url+="&message="+ URLEncoder.encode(text.getText().toString());
@@ -312,7 +338,7 @@ public class GuideDetails extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             utl.snack(act,response);
-                            getReviews(place.id);
+                            getReviews(guide.id);
                         }
 
                         @Override
@@ -429,7 +455,7 @@ public class GuideDetails extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 utl.snack(act,"Deleted !");
-                                getReviews(place.id);
+                                getReviews(guide.id);
                             }
 
                             @Override

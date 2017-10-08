@@ -207,6 +207,7 @@ public class Guides extends AppCompatActivity {
                 Intent it = new Intent(ctx, GuideDetails.class);
 
                 it.putExtra("guide", utl.js.toJson(cat));
+                it.putExtra("place", utl.js.toJson(place));
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

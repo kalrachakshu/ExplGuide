@@ -103,7 +103,7 @@ public class SplashView extends View {
     private float mCurrentRotationRadius;
     private float mCurrentSingleCircleRadius;
 
-    // use state pattern for switching between animations more easily
+    // use state pattern for switching between animations location easily
     private SplashState mState = null;
 
     // cache the objects so that we don't have to allocate during onDraw
