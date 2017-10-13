@@ -120,6 +120,7 @@ public class GuideDetails extends AppCompatActivity {
 
 
         user=utl.readUserData();
+        utl.l(user);
         guide =utl.js.fromJson(getIntent().getStringExtra("guide"),Guide.class);
         place=utl.js.fromJson(getIntent().getStringExtra("place"),Place.class);
 
