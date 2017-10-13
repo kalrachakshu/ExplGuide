@@ -150,7 +150,6 @@ public class PlaceDetails extends AppCompatActivity {
             place.name=jo.getString("name");
             place.id=jo.getString("id");
             place.desc=jo.getString("desc");
-            place.distance=jo.getString("distance");
             place.lat=jo.getDouble("lat");
             place.lng=jo.getDouble("lng");
             place.address=jo.getString("address");
@@ -158,13 +157,14 @@ public class PlaceDetails extends AppCompatActivity {
             place.rating=jo.getDouble("rating");
             place.marked=jo.getBoolean("marked");
 
+            place.distance=jo.getString("distance");
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        utl.l(getIntent().getStringExtra("guide"));
+        utl.l("\nGOT TH JSON"+getIntent().getStringExtra("guide"));
 
           if(place!=null)
         {
@@ -549,10 +549,14 @@ public class PlaceDetails extends AppCompatActivity {
     public void fill(Place pla)
     {
 
-        utl.l(pla.toString());
+        utl.l("deserialized place is"+pla.toString());
         title.setText(pla.name);
         desc.setText(pla.desc);
-        rate.setRating(pla.rating.floatValue());
+        try {
+            rate.setRating(pla.rating.floatValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         address.setText(pla.address);
 
         strip=pla.getImages();
