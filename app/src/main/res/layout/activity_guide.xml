@@ -227,7 +227,7 @@
                 <com.daniribalbert.customfontlib.views.CustomFontTextView
                     app:font="Rubik-Regular"
                     android:gravity="center"
-                    android:text="Hourly"
+                    android:text="Per Hour"
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:textSize="14sp"
