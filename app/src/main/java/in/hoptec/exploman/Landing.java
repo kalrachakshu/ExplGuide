@@ -103,15 +103,13 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
         ctx = this;
         act = this;
 
-
         utl.fullScreen(this);
         setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         user = utl.readUserData();
 
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
 
@@ -834,6 +832,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
                         }else if(drawerItem==tours || drawerItem==wallet)
                         {
                             startActivity(new Intent(ctx,Tours.class));
+                            finish();
                          }
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(ctx, ((Nameable) drawerItem).getName().getText(ctx), Toast.LENGTH_SHORT).show();
