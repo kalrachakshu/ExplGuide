@@ -1,5 +1,6 @@
 package in.hoptec.exploman.database;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -47,6 +48,7 @@ public class Place {
 
     public boolean marked=false;
 
+    @JsonIgnore
     public MarkerOptions marker;
 
 
