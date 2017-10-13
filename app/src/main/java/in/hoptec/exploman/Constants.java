@@ -90,6 +90,7 @@ public class Constants {
     public static String API_GET_NEW_BOOK="/api/init_book.php";
 
 
+    public static String API_GET_TOUR_PACKAGES="/api/get_tours.php";
 
     public static boolean IS_ANIMATED_BG_SPLASH=false;
     public static boolean isPdCancelable=true;

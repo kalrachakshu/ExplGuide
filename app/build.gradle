@@ -48,6 +48,8 @@ dependencies {
 
 
 
+
+
     //android
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
@@ -55,6 +57,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
 
     //ui
+    compile ('me.kaelaela:verticalviewpager:1.0.0@aar')
     compile 'com.daniribalbert:custom-font-lib:0.9.8'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:8.6.0'

@@ -178,7 +178,8 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
     //todo show packages
     public void packages()
     {
-
+        startActivity(new Intent(ctx,TourPackages.class));
+        finish();
     }
     public void showBottomBar(final Place plc) {
         LinearLayout lt = (LinearLayout) findViewById(R.id.bottom);

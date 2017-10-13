@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@android:style/Theme.Translucent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="@android:color/black"
+    android:orientation="vertical">
+    <ImageView
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <com.daniribalbert.customfontlib.views.CustomFontTextView
+        app:font="LearningCurve"
+        android:text="GO"
+        android:id="@+id/go"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="23sp"
+        android:background="@drawable/btn_sel_tran"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="101dp" />
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:id="@+id/up"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+         android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrowup"/>
+
+        <TextView
+            android:visibility="gone"
+            android:text="Swipe Up"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/dow"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+        <TextView
+            android:visibility="gone"
+            android:text="Swipe Down"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrowdown"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

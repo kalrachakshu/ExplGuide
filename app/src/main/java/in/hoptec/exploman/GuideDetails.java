@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
@@ -268,7 +267,7 @@ public class GuideDetails extends AppCompatActivity {
 
 
 
-        mBottomSheetDialog = new BottomSheetDialog(ctx);
+        mBottomSheetDialog = new BottomSheetDialog(act);
         View sheetView = act.getLayoutInflater().inflate(R.layout.write_rev, null);
 
         final EditText
@@ -302,9 +301,6 @@ public class GuideDetails extends AppCompatActivity {
                     }
                     view.setImageDrawable(img[pos]);
                     //  view.setImageResource(images[pos]);
-                    ImageView cr=(ImageView)view22;
-                    cr.setImageDrawable(getResources().getDrawable(images[pos]));
-
 
 
                 }

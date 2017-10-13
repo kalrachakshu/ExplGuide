@@ -94,7 +94,8 @@ https://github.com/TangoAgency/material-intro-screen
         <activity
             android:name=".Tours"
             android:label="@string/title_activity_tours"
-            android:theme="@style/FullScreen"></activity>
+            android:theme="@style/FullScreen" />
+        <activity android:name=".TourPackages"></activity>
     </application>
 
 </manifest>
