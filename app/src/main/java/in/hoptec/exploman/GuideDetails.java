@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
@@ -267,7 +268,7 @@ public class GuideDetails extends AppCompatActivity {
 
 
 
-        mBottomSheetDialog = new BottomSheetDialog(act);
+        mBottomSheetDialog = new BottomSheetDialog(ctx);
         View sheetView = act.getLayoutInflater().inflate(R.layout.write_rev, null);
 
         final EditText
@@ -301,6 +302,9 @@ public class GuideDetails extends AppCompatActivity {
                     }
                     view.setImageDrawable(img[pos]);
                     //  view.setImageResource(images[pos]);
+                    ImageView cr=(ImageView)view22;
+                    cr.setImageDrawable(getResources().getDrawable(images[pos]));
+
 
 
                 }
@@ -445,8 +449,9 @@ public class GuideDetails extends AppCompatActivity {
 
             @Override
             public void like(final Review cat, boolean like) {
+                if(cat.userId.equals(user.uid)){
 
-                utl.snack(findViewById(R.id.activity_guide), "Delete this comment ? ", "DELETE", new GenricCallback() {
+                    utl.snack(findViewById(R.id.activity_guide), "Delete this comment ? ", "DELETE", new GenricCallback() {
                     @Override
                     public void onStart() {
 
@@ -480,7 +485,7 @@ public class GuideDetails extends AppCompatActivity {
                     public void onDone(Object obj) {
 
                     }
-                });
+                });}
             }
 
             @Override
