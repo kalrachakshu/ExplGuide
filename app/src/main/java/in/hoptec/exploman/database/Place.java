@@ -48,7 +48,8 @@ public class Place {
 
     public boolean marked=false;
 
-    @JsonIgnore
+    @SerializedName("marker")
+    @Expose(deserialize = false)
     public MarkerOptions marker;
 
 

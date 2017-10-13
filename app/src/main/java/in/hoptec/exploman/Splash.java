@@ -1081,7 +1081,7 @@ private class StartNextRotate implements Animation.AnimationListener {
                                 GenricUser oUser;
                                 oUser=js.fromJson(response, GenricUser.class);
                                 utl.writeUserData(oUser,ctx);
-                                startActivity(new Intent(ctx,Home.class));
+                                startActivity(new Intent(ctx,Landing.class));
                             }
 
                         } catch (Exception e) {

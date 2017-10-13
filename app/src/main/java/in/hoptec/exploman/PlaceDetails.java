@@ -33,12 +33,14 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.gson.JsonSyntaxException;
 import com.nineoldandroids.animation.Animator;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -139,9 +141,32 @@ public class PlaceDetails extends AppCompatActivity {
 
 
         ButterKnife.bind(this);
-        place=utl.js.fromJson(getIntent().getStringExtra("guide"),Place.class);
+        try {
+           // place=utl.js.fromJson(getIntent().getStringExtra("guide"),Place.class);
 
-        if(place!=null)
+            JSONObject jo=new JSONObject(getIntent().getStringExtra("guide"));
+            place=new Place();
+
+            place.name=jo.getString("name");
+            place.id=jo.getString("id");
+            place.desc=jo.getString("desc");
+            place.distance=jo.getString("distance");
+            place.lat=jo.getDouble("lat");
+            place.lng=jo.getDouble("lng");
+            place.address=jo.getString("address");
+            place.images=jo.getString("images");
+            place.rating=jo.getDouble("rating");
+            place.marked=jo.getBoolean("marked");
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        utl.l(getIntent().getStringExtra("guide"));
+
+          if(place!=null)
         {
             fill(place);
         }
@@ -323,7 +348,7 @@ public class PlaceDetails extends AppCompatActivity {
                     String url=Constants.HOST+Constants.API_GET_PREVIEWS+"?";
                     url+="place_id="+place.id;
                     url+="&user_id="+user.uid;
-                    url+="&rate="+ratingf;
+                    url+="&rating="+ratingf;
                     url+="&message="+ URLEncoder.encode(text.getText().toString());
                     url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
 
@@ -471,6 +496,7 @@ public class PlaceDetails extends AppCompatActivity {
             @Override
             public void like(final Review cat, boolean like) {
 
+                if(cat.userId.equals(user.uid)){
                 utl.snack(findViewById(R.id.activity_place), "Delete this comment ? ", "DELETE", new GenricCallback() {
                     @Override
                     public void onStart() {
@@ -506,7 +532,7 @@ public class PlaceDetails extends AppCompatActivity {
 
                     }
                 });
-            }
+            }}
 
             @Override
             public void click(Review cat, int id, View v) {

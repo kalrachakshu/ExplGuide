@@ -329,7 +329,7 @@ public class GuideDetails extends AppCompatActivity {
                     String url=Constants.HOST+Constants.API_GET_GREVIEWS+"?";
                     url+="guide_id="+ guide.id;
                     url+="&user_id="+user.uid;
-                    url+="&rate="+ratingf;
+                    url+="&rating="+ratingf;
                     url+="&message="+ URLEncoder.encode(text.getText().toString());
                     url+="&extra0="+ URLEncoder.encode(utl.getFCMToken());
 

@@ -17,7 +17,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
 
-import in.hoptec.exploman.Home;
+import in.hoptec.exploman.Landing;
 import in.hoptec.exploman.R;
 import in.hoptec.exploman.utils.NotificationExtras;
 import in.hoptec.exploman.utl;
@@ -48,7 +48,7 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
          //   String mess=remoteMessage.getNotification().getBody();
 
 
-            Intent intent = new Intent( this , Home. class );
+            Intent intent = new Intent( this , Landing. class );
 
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -67,8 +67,8 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                     .setContentText(""+remoteMessage.getData().get("text"))
                     .setAutoCancel( true )
                     .setSound(notificationSoundURI)
-                    .setContentInfo("Wootout")
-                    .setContentIntent(isLoggedIn?resultIntent: PendingIntent.getActivity( this , 0, new Intent(ctx, Home.class),
+                    .setContentInfo("ExploOman")
+                    .setContentIntent(isLoggedIn?resultIntent: PendingIntent.getActivity( this , 0, new Intent(ctx, Landing.class),
                             PendingIntent.FLAG_ONE_SHOT));
 
 

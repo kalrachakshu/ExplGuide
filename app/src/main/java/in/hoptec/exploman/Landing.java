@@ -210,7 +210,7 @@ public class Landing extends AppCompatActivity implements OnMapReadyCallback {
 
         rate.setVisibility(View.VISIBLE);
         rate.setRating(plc.rating.floatValue());
-        rate.setRating(4.5f);
+       // rate.setRating(plc.);
         name.setText(plc.name);
 
         utl.changeColorDrawable(go, R.color.blue_600);
